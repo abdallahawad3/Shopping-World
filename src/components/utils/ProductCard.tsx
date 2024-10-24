@@ -34,7 +34,7 @@ const ProductCard = () => {
             $299
           </p>
         </div>
-        <div className="mt-6 flex items-center gap-2.5">
+        <div className="mt-5 flex items-center gap-2.5">
           <button
             data-tooltip-target="favourites-tooltip-1"
             type="button"
