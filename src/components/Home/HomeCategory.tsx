@@ -5,7 +5,7 @@ const HomeCategory = () => {
   return (
     <div>
       <SubTitle btnTitle="Show More" redirectPath="/" title="All Category" />
-      <div className="mt-2 grid grid-cols-2 justify-center gap-x-1 gap-y-7 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 xl:gap-y-0">
+      <div className="mt-6 grid grid-cols-2 justify-center gap-x-1 gap-y-7 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 xl:gap-y-0">
         <CategoryCard />
         <CategoryCard />
         <CategoryCard />
