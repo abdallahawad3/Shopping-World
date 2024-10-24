@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 .dark {
-  background-color: rgb(25, 33, 44);
+  background-color: #111827;
   color: #d5d4d4 !important;
 }
