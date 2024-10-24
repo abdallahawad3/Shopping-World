@@ -7,7 +7,7 @@ interface IProps {
 const BrandsSection = ({ btnTitle, title }: IProps) => {
   return (
     <div>
-      <SubTitle redirectPath="/" title={title} btnTitle={btnTitle} />
+      <SubTitle redirectPath="/brands" title={title} btnTitle={btnTitle} />
       <div className="mt-5 grid justify-center gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         <BrandCard />
         <BrandCard />

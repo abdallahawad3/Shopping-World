@@ -7,6 +7,12 @@ import RootLayout from "../layouts/RootLayout";
 import HomePage from "../Pages/Home";
 import LoginPage from "../Pages/Auth/Login";
 import RegisterPage from "../Pages/Auth/Register";
+import ProtectedRoutes from "../components/Auth/ProtectedRoutes";
+import CategoryPage from "../Pages/Catrgories/Category";
+import ProductsPage from "../Pages/Products/Products";
+import BrandsPage from "../Pages/Brands/Brands";
+
+const isLogged = false;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -14,8 +20,25 @@ const router = createBrowserRouter(
       {/* Root Layout */}
       <Route element={<RootLayout />} path="/">
         <Route index element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoutes isAllowed={!isLogged} redirectPath="/">
+              <LoginPage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <ProtectedRoutes isAllowed={!isLogged} redirectPath="/">
+              <RegisterPage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route path="/allCategory" element={<CategoryPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/brands" element={<BrandsPage />} />
       </Route>
       {/* User Layout */}
       {/* Admin Layout */}
