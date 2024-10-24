@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const NavbarComponent = () => {
   return (
     <header>
-      <Navbar className="py-5 shadow-md ">
+      <Navbar className="mb-1 py-5 shadow-lg">
         <Navbar.Brand as={Link} to="/">
           <img
             src="/ecommerce.svg"
@@ -18,13 +18,12 @@ const NavbarComponent = () => {
           </span>
         </Navbar.Brand>
         <Navbar.Toggle />
-        <Navbar.Collapse className="!items-center">
-          <Navbar.Link to={"/"} className="dark:text-white" as={Link}>
+        <Navbar.Collapse className="">
+          <Link to={"/"} className="flex items-center gap-1 dark:text-white">
             Home
-          </Navbar.Link>
-          <Navbar.Link
+          </Link>
+          <Link
             className="flex items-center gap-1 dark:text-white"
-            as={Link}
             to={"/cart"}
           >
             Cart
@@ -34,10 +33,9 @@ const NavbarComponent = () => {
                 0
               </span> */}
             </span>
-          </Navbar.Link>
-          <Navbar.Link
+          </Link>
+          <Link
             className="flex items-center gap-1 dark:text-white"
-            as={Link}
             to={"/wishlist"}
           >
             Wishlist
@@ -47,15 +45,13 @@ const NavbarComponent = () => {
                 0
               </span> */}
             </div>
-          </Navbar.Link>
-          <Navbar.Link className="dark:text-white" as={Link}>
-            <Link
-              to={"/login"}
-              className="cursor-pointer rounded-md bg-blue-600 px-5 py-2"
-            >
-              Login
-            </Link>
-          </Navbar.Link>
+          </Link>
+          <Link
+            to={"/login"}
+            className="cursor-pointer rounded-md bg-blue-600 px-5 py-2"
+          >
+            Login
+          </Link>
         </Navbar.Collapse>
       </Navbar>
     </header>
