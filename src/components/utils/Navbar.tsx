@@ -49,9 +49,12 @@ const NavbarComponent = () => {
             </div>
           </Navbar.Link>
           <Navbar.Link className="dark:text-white" as={Link}>
-            <span className="cursor-pointer rounded-md bg-blue-600 px-5 py-2">
+            <Link
+              to={"/login"}
+              className="cursor-pointer rounded-md bg-blue-600 px-5 py-2"
+            >
               Login
-            </span>
+            </Link>
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>

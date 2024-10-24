@@ -1,7 +1,6 @@
 import HomeCategory from "../../components/Home/HomeCategory";
 import CardProductsSection from "../../components/Home/CardProductsSection";
 import Slider from "../../components/Home/Slider";
-import NavbarComponent from "../../components/utils/Navbar";
 import Footer from "../../components/utils/Footer";
 import Discount from "../../components/Home/Discount";
 import BrandsSection from "../../components/Home/BrandsSection";
@@ -9,7 +8,6 @@ import BrandsSection from "../../components/Home/BrandsSection";
 const HomePage = () => {
   return (
     <>
-      <NavbarComponent />
       <section className="">
         <Slider />
       </section>
