@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <>
       <NavbarComponent />
-      <section className="mt-[76px]">
+      <section className="">
         <Slider />
       </section>
       <section className="container py-10">
