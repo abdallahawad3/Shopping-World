@@ -30,9 +30,9 @@ const NavbarComponent = () => {
             Cart
             <span className="relative">
               <MdOutlineShoppingCart size={17} />
-              <span className="absolute right-[-10px] top-[-7px] flex size-4 items-center justify-center rounded-full bg-blue-700">
+              {/* <span className="absolute right-[-10px] top-[-7px] flex size-4 items-center justify-center rounded-full bg-blue-700">
                 0
-              </span>
+              </span> */}
             </span>
           </Navbar.Link>
           <Navbar.Link
@@ -43,9 +43,9 @@ const NavbarComponent = () => {
             Wishlist
             <div className="relative">
               <FaRegHeart size={17} />
-              <span className="absolute right-[-10px] top-[-7px] flex size-4 items-center justify-center rounded-full bg-blue-700">
+              {/* <span className="absolute right-[-10px] top-[-7px] flex size-4 items-center justify-center rounded-full bg-blue-700">
                 0
-              </span>
+              </span> */}
             </div>
           </Navbar.Link>
           <Navbar.Link className="dark:text-white" as={Link}>
