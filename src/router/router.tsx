@@ -13,6 +13,8 @@ import ProductsPage from "../Pages/Products/Products";
 import BrandsPage from "../Pages/Brands/Brands";
 import ProductPage from "../Pages/Products/Product";
 import CartPage from "../Pages/Cart/Cart";
+import AdminLayout from "../layouts/AdminLayout";
+import DashboardTable from "../components/Admin/DashboardTable";
 
 const isLogged = false;
 
@@ -46,6 +48,9 @@ const router = createBrowserRouter(
       </Route>
       {/* User Layout */}
       {/* Admin Layout */}
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<DashboardTable />} />
+      </Route>
     </>,
   ),
 );
