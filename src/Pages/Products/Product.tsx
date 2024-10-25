@@ -1,9 +1,11 @@
+import ProductSlider from "../../components/Products/ProductSlider";
+
 const ProductPage = () => {
   return (
-    <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+    <section className="bg-white py-8 antialiased md:py-16 dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-          <div className="mx-auto max-w-md shrink-0 lg:max-w-lg">
+          {/* <div className="mx-auto max-w-md shrink-0 lg:max-w-lg">
             <img
               className="w-full dark:hidden"
               src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
@@ -38,15 +40,18 @@ const ProductPage = () => {
                 />
               </div>
             </div>
+          </div> */}
+          <div className="mx-auto max-w-md shrink-0 lg:max-w-lg">
+            <ProductSlider />
           </div>
 
           <div className="mt-6 sm:mt-8 lg:mt-0">
-            <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+            <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
               Apple iMac 24" All-In-One Computer, Apple M1, 8GB RAM, 256GB SSD,
               Mac OS, Pink
             </h1>
             <div className="mt-4 sm:flex sm:items-center sm:gap-4">
-              <p className="text-2xl font-extrabold text-gray-900 dark:text-white sm:text-3xl">
+              <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
                 $1,249.99
               </p>
 
@@ -150,7 +155,7 @@ const ProductPage = () => {
               <a
                 href="#"
                 title=""
-                className="mt-4 flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 sm:mt-0"
+                className="mt-4 flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 sm:mt-0 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 role="button"
               >
                 <svg
@@ -174,7 +179,7 @@ const ProductPage = () => {
               </a>
             </div>
 
-            <hr className="my-6 border-gray-200 dark:border-gray-800 md:my-8" />
+            <hr className="my-6 border-gray-200 md:my-8 dark:border-gray-800" />
 
             <p className="mb-6 text-gray-500 dark:text-gray-400">
               Studio quality three mic array for crystal clear calls and voice
