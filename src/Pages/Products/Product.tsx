@@ -1,3 +1,4 @@
+import ProductReview from "../../components/Products/ProductReview";
 import ProductSlider from "../../components/Products/ProductSlider";
 
 const ProductPage = () => {
@@ -195,6 +196,9 @@ const ProductPage = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div>
+        <ProductReview />
       </div>
     </section>
   );
