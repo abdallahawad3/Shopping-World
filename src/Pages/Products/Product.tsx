@@ -1,3 +1,4 @@
+import CardProductsSection from "../../components/Home/CardProductsSection";
 import ProductReview from "../../components/Products/ProductReview";
 import ProductSlider from "../../components/Products/ProductSlider";
 
@@ -199,6 +200,9 @@ const ProductPage = () => {
       </div>
       <div>
         <ProductReview />
+      </div>
+      <div className="container mt-5">
+        <CardProductsSection title="May You Like" btnTitle="Show More" />
       </div>
     </section>
   );

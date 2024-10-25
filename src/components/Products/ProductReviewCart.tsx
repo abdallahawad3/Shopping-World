@@ -1,6 +1,6 @@
 import RatingStars from "../utils/RatingStars";
 
-const ProductReviewCar = () => {
+const ProductReviewCart = () => {
   return (
     <div className="space-y-2 border-b py-5 ">
       <div className="flex gap-2">
@@ -19,4 +19,4 @@ const ProductReviewCar = () => {
   );
 };
 
-export default ProductReviewCar;
+export default ProductReviewCart;

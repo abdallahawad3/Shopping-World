@@ -1,6 +1,6 @@
 import { useState } from "react";
 import RatingStars from "../utils/RatingStars";
-import ProductReviewCar from "./ProductReviewCar";
+import ProductReviewCart from "./ProductReviewCart";
 
 const ProductReview = () => {
   const [rating, setRating] = useState(3.2);
@@ -60,9 +60,9 @@ const ProductReview = () => {
             </button>
           </form>
           <div className="mt-5 space-y-4 border-t">
-            <ProductReviewCar />
-            <ProductReviewCar />
-            <ProductReviewCar />
+            <ProductReviewCart />
+            <ProductReviewCart />
+            <ProductReviewCart />
           </div>
         </div>
       </section>

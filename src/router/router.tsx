@@ -12,6 +12,7 @@ import CategoryPage from "../Pages/Catrgories/Category";
 import ProductsPage from "../Pages/Products/Products";
 import BrandsPage from "../Pages/Brands/Brands";
 import ProductPage from "../Pages/Products/Product";
+import CartPage from "../Pages/Cart/Cart";
 
 const isLogged = false;
 
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/brands" element={<BrandsPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Route>
       {/* User Layout */}
       {/* Admin Layout */}
