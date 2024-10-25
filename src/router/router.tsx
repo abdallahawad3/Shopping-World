@@ -15,6 +15,12 @@ import ProductPage from "../Pages/Products/Product";
 import CartPage from "../Pages/Cart/Cart";
 import AdminLayout from "../layouts/AdminLayout";
 import DashboardTable from "../components/Admin/DashboardTable";
+import OrdersPage from "../Pages/Admin/Orders";
+import SingleOrderPage from "../Pages/Admin/SingleOrder";
+import AddBrandPage from "../Pages/Admin/AddBrand";
+import AddCategoryPage from "../Pages/Admin/AddCategory";
+import AddSubCategoryPage from "../Pages/Admin/AddSubCategory";
+import AddProductPage from "../Pages/Admin/AddProduct";
 
 const isLogged = false;
 
@@ -50,6 +56,12 @@ const router = createBrowserRouter(
       {/* Admin Layout */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<DashboardTable />} />
+        <Route path="orders" element={<OrdersPage />} />
+        <Route path="order/:id" element={<SingleOrderPage />} />
+        <Route path="addBrand" element={<AddBrandPage />} />
+        <Route path="addCategory" element={<AddCategoryPage />} />
+        <Route path="addSubCategory" element={<AddSubCategoryPage />} />
+        <Route path="addProduct" element={<AddProductPage />} />
       </Route>
     </>,
   ),
