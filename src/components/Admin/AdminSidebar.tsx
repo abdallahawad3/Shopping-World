@@ -13,7 +13,7 @@ const AdminSidebar = () => {
                 className="mr-4 flex items-center justify-between"
               >
                 <img
-                  src="./ecommerce.svg"
+                  src="../../../public/ecommerce.svg"
                   className="mr-3 h-8"
                   alt="Flowbite Logo"
                 />
