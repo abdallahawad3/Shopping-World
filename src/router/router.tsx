@@ -24,6 +24,7 @@ import AddProductPage from "../Pages/Admin/AddProduct";
 import UserLayout from "../layouts/UserLayout";
 import UserHomePage from "../Pages/User";
 import AddressPage from "../Pages/User/Address";
+import ProfilePage from "../components/User/ProfilePage";
 
 const isLogged = false;
 
@@ -59,7 +60,7 @@ const router = createBrowserRouter(
       <Route path="/user" element={<UserLayout />}>
         <Route index element={<UserHomePage />} />
         <Route path="address" element={<AddressPage />} />
-        <Route index element={<UserHomePage />} />
+        <Route path="profile" element={<ProfilePage />} />
       </Route>
       {/* Admin Layout */}
       <Route path="/admin" element={<AdminLayout />}>
