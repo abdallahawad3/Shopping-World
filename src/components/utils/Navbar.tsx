@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const NavbarComponent = () => {
   return (
     <header>
-      <Navbar className="mb-1 py-5 shadow-lg">
+      <Navbar className="sticky left-0 top-0 z-[100]  w-full py-5 shadow-lg">
         <Navbar.Brand as={Link} to="/">
           <img
             src="/ecommerce.svg"

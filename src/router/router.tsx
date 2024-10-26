@@ -21,6 +21,8 @@ import AddBrandPage from "../Pages/Admin/AddBrand";
 import AddCategoryPage from "../Pages/Admin/AddCategory";
 import AddSubCategoryPage from "../Pages/Admin/AddSubCategory";
 import AddProductPage from "../Pages/Admin/AddProduct";
+import UserLayout from "../layouts/UserLayout";
+import UserHomePage from "../Pages/User";
 
 const isLogged = false;
 
@@ -53,6 +55,9 @@ const router = createBrowserRouter(
         <Route path="/cart" element={<CartPage />} />
       </Route>
       {/* User Layout */}
+      <Route path="/user" element={<UserLayout />}>
+        <Route index element={<UserHomePage />} />
+      </Route>
       {/* Admin Layout */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<DashboardTable />} />
