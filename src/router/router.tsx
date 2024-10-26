@@ -57,12 +57,54 @@ const router = createBrowserRouter(
         <Route path="/product/:id" element={<ProductPage />} />
       </Route>
       {/* User Layout */}
-      <Route path="/user" element={<UserLayout />}>
-        <Route index element={<UserHomePage />} />
-        <Route path="address" element={<AddressPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="cart" element={<CartPage />} />
-        <Route path="wishlist" element={<WishlistPage />} />
+      <Route
+        path="/user"
+        element={
+          <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+            <UserLayout />
+          </ProtectedRoutes>
+        }
+      >
+        <Route
+          index
+          element={
+            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+              <UserHomePage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="address"
+          element={
+            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+              <AddressPage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+              <ProfilePage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="cart"
+          element={
+            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+              <CartPage />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="wishlist"
+          element={
+            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+              <WishlistPage />
+            </ProtectedRoutes>
+          }
+        />
       </Route>
       {/* Admin Layout */}
       <Route path="/admin" element={<AdminLayout />}>
