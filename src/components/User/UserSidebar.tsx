@@ -33,7 +33,7 @@ const UserSidebar = () => {
               </li>
               <li>
                 <Link
-                  to={"/user"}
+                  to={"/user/address"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                   aria-controls="dropdown-sales"
                   data-collapse-toggle="dropdown-sales"
