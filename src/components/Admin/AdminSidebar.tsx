@@ -8,8 +8,8 @@ const AdminSidebar = () => {
         <nav className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-700 dark:bg-gray-800">
           <div className="flex flex-wrap items-center justify-between">
             <div className="flex items-center justify-start">
-              <a
-                href="https://flowbite.com"
+              <Link
+                to="/admin"
                 className="mr-4 flex items-center justify-between"
               >
                 <img
@@ -20,7 +20,7 @@ const AdminSidebar = () => {
                 <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
                   Shopping World
                 </span>
-              </a>
+              </Link>
               <form action="#" method="GET" className="hidden md:block md:pl-2">
                 <label htmlFor="topbar-search" className="sr-only">
                   Search
@@ -29,18 +29,16 @@ const AdminSidebar = () => {
               </form>
             </div>
             <div className="flex items-center lg:order-2">
-              <button
+              <Link
+                to={"/admin"}
                 className="mx-3 flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 md:mr-0 dark:focus:ring-gray-600"
-                id="user-menu-button"
-                aria-expanded="false"
-                data-dropdown-toggle="dropdown"
               >
                 <img
                   className="size-8 rounded-full"
                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
                   alt="user photo"
                 />
-              </button>
+              </Link>
             </div>
           </div>
         </nav>

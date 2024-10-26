@@ -1,10 +1,10 @@
-import { Dropdown } from "flowbite-react";
+import SelectMenu from "../../components/utils/SelectMenu";
 
 const AddSubCategoryPage = () => {
   return (
     <div className="mx-auto mt-10 max-w-screen-xl space-y-5 px-4 py-10 md:ms-[16rem] lg:px-12">
       <h2 className="mb-5 text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-        Add New Category
+        Add Sub Category
       </h2>
       <form className="space-y-5">
         <div>
@@ -14,18 +14,9 @@ const AddSubCategoryPage = () => {
             type="text"
           />
         </div>
-        <div className=" flex w-full justify-end rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder:text-gray-400">
-          <Dropdown
-            color={"gray"}
-            dismissOnClick={false}
-            label="Second Category"
-          >
-            <div className="space-y-2 p-2">
-              <li className="cursor-pointer">First</li>
-              <li className="cursor-pointer">Second</li>
-            </div>
-          </Dropdown>
-        </div>
+
+        <SelectMenu selectFor="Main Category" />
+
         <div className="mt-12 flex justify-end">
           <button
             type="button"
