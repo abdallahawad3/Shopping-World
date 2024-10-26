@@ -24,7 +24,7 @@ const NavbarComponent = () => {
           </Link>
           <Link
             className="flex items-center gap-1 dark:text-white"
-            to={"/cart"}
+            to={"/user/cart"}
           >
             Cart
             <span className="relative">
@@ -36,7 +36,7 @@ const NavbarComponent = () => {
           </Link>
           <Link
             className="flex items-center gap-1 dark:text-white"
-            to={"/wishlist"}
+            to={"/user/wishlist"}
           >
             Wishlist
             <div className="relative">

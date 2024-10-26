@@ -25,6 +25,7 @@ import UserLayout from "../layouts/UserLayout";
 import UserHomePage from "../Pages/User";
 import AddressPage from "../Pages/User/Address";
 import ProfilePage from "../components/User/ProfilePage";
+import WishlistPage from "../Pages/User/Wishlist";
 
 const isLogged = false;
 
@@ -54,13 +55,14 @@ const router = createBrowserRouter(
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/brands" element={<BrandsPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/cart" element={<CartPage />} />
       </Route>
       {/* User Layout */}
       <Route path="/user" element={<UserLayout />}>
         <Route index element={<UserHomePage />} />
         <Route path="address" element={<AddressPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="cart" element={<CartPage />} />
+        <Route path="wishlist" element={<WishlistPage />} />
       </Route>
       {/* Admin Layout */}
       <Route path="/admin" element={<AdminLayout />}>
