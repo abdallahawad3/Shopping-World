@@ -1,22 +1,27 @@
 import CategoryCard from "../../components/Category/CategoryCard";
 import Pagination from "../../components/utils/Pagination";
+import { useAppDispatch, type RootState } from "../../app/store";
+import { useEffect } from "react";
+import { getAllCategory } from "../../app/feature/CategorySlice/CategorySlice";
+import { useSelector } from "react-redux";
 
 const CategoryPage = () => {
+  const { data, isLoading } = useSelector(
+    (state: RootState) => state.allCategory,
+  );
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAllCategory(7));
+  }, [dispatch]);
+
+  if (isLoading) return <h1>Loading...🔃🔃</h1>;
+
   return (
     <main className="my-10">
-      <div className="container mb-20 grid justify-center gap-2 md:grid-cols-3 md:gap-y-10 lg:grid-cols-5 xl:grid-cols-6">
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
+      <div className="container mb-10 grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        {data.slice(0, 10).map((cat, idx) => (
+          <CategoryCard key={idx} category={cat} />
+        ))}
       </div>
       <div className="text-center">
         <Pagination />
