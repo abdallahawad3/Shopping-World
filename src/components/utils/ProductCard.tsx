@@ -1,11 +1,17 @@
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ProductCard = () => {
   const isLogged = false;
 
   return (
-    <div className="max-h-fit rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.75 }}
+      className="max-h-fit rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+    >
       <div className="h-56 w-full">
         <Link to="/product/1">
           <img
@@ -244,7 +250,7 @@ const ProductCard = () => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

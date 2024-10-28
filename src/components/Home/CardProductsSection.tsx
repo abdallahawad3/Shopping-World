@@ -10,7 +10,7 @@ const CardProductsSection = ({ btnTitle, title }: IProps) => {
   return (
     <div>
       <SubTitle redirectPath="/products" title={title} btnTitle={btnTitle} />
-      <div className="mt-5 grid  gap-3 md:grid-cols-4">
+      <div className="mt-5 grid  gap-4 px-10 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <ProductCard />
         <ProductCard />
         <ProductCard />
