@@ -1,23 +1,11 @@
+import type { ChangeEvent } from "react";
+import uploadImg from "../../../public/upload.png";
 import SelectMenu from "../../components/utils/SelectMenu";
-import AddImageInput from "../../components/utils/AddImageInput";
-import { useState } from "react";
 
 const AddProductPage = () => {
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Extract all selected images
-    const files = e.target.files ? Array.from(e.target.files) : [];
-    // Map return all images with urls
-    const newImages = files.map((file) => URL.createObjectURL(file));
-    setSelectedImages((prevImages) => [...prevImages, ...newImages]);
+  const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e);
   };
-
-  const handleDeleteImage = (imageUrl: string) => {
-    setSelectedImages((prevImages) =>
-      prevImages.filter((image) => image !== imageUrl),
-    );
-  };
-
   return (
     <div className="mx-auto mt-10 max-w-screen-xl space-y-5 px-4 py-10 md:ms-[16rem] lg:px-12">
       <h2 className="mb-5 text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
@@ -29,11 +17,27 @@ const AddProductPage = () => {
         }}
         className="space-y-5"
       >
-        <AddImageInput
-          handleDeleteImage={handleDeleteImage}
-          handleImageChange={handleImageChange}
-          selectedImages={selectedImages}
-        />
+        <div>
+          <p className="mb-2 text-lg font-semibold text-gray-900  dark:text-white">
+            Upload An Image
+          </p>
+          <div className="flex w-full">
+            <label
+              htmlFor="dropzone-file"
+              className="relative flex size-64 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600 "
+            >
+              <div className=" flex  items-center justify-center pb-6 pt-5">
+                <img src={uploadImg} className="size-full" alt="Upload Image" />
+              </div>
+              <input
+                onChange={onImageChange}
+                id="dropzone-file"
+                type="file"
+                className="hidden"
+              />
+            </label>
+          </div>
+        </div>
         <div className="mb-6">
           <label
             htmlFor="large-input"
