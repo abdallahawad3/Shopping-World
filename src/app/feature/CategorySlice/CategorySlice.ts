@@ -3,10 +3,9 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import type { ICategory, IErrorResponse } from "../../../interfaces";
+import type { ICategory } from "../../../interfaces";
 import { axiosInstance } from "../../../config/axios.config";
 import toast from "react-hot-toast";
-import type { AxiosError } from "axios";
 
 interface CategoryState {
   data: ICategory[];
@@ -82,7 +81,6 @@ export const AddCategory = createAsyncThunk(
           },
         },
       );
-      console.log(statusText);
 
       if (statusText == "Created") {
         toast.success("Your category has been added successfully!", {
@@ -124,13 +122,11 @@ const categorySlice = createSlice({
         state.isLoading = false;
         state.isError = null;
       })
-      .addCase(AddCategory.fulfilled, (state) => {
-        console.log(state);
-      })
       .addCase(AddCategory.rejected, (_, action) => {
-        const errorObj = action.payload as AxiosError<IErrorResponse>;
-        const errorMsg = errorObj.response?.data.error.message;
-        toast.error(`${errorMsg}`);
+        const errorPayload = action.payload as {
+          response: { data: { message: string } };
+        };
+        toast.error(errorPayload.response.data.message);
       });
   },
 });
