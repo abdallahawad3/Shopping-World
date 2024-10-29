@@ -4,3 +4,13 @@ export interface ICategory {
   name: string;
   slug: string;
 }
+export interface IErrorResponse {
+  error: {
+    details?: {
+      errors: {
+        message: string;
+      }[];
+    };
+    message?: string;
+  };
+}

@@ -1,15 +1,21 @@
+import type { UseFormRegister } from "react-hook-form";
 import { MdDelete } from "react-icons/md";
-
+type AddCategoryInputs = {
+  categoryImage: string;
+  categoryName: string;
+};
 interface IProps {
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   selectedImages: string[];
   handleDeleteImage: (imageURL: string) => void;
+  register: UseFormRegister<AddCategoryInputs>;
 }
 
 const AddImageInput = ({
-  handleImageChange,
+  // handleImageChange,
   selectedImages,
   handleDeleteImage,
+  register,
 }: IProps) => {
   return (
     <div>
@@ -46,8 +52,8 @@ const AddImageInput = ({
             id="dropzone-file"
             type="file"
             className="hidden"
-            onChange={handleImageChange}
             multiple
+            {...register("categoryImage")}
           />
         </label>
       </div>

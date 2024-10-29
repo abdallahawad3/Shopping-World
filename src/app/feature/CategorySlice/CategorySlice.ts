@@ -3,8 +3,10 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import type { ICategory } from "../../../interfaces";
+import type { ICategory, IErrorResponse } from "../../../interfaces";
 import { axiosInstance } from "../../../config/axios.config";
+import toast from "react-hot-toast";
+import type { AxiosError } from "axios";
 
 interface CategoryState {
   data: ICategory[];
@@ -64,6 +66,36 @@ export const getPaginationCategory = createAsyncThunk(
     }
   },
 );
+
+export const AddCategory = createAsyncThunk(
+  "allCategory/AddCategory",
+  async (formData: FormData, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+
+    try {
+      const { data, statusText } = await axiosInstance.post(
+        "/categories",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`,
+          },
+        },
+      );
+      console.log(statusText);
+
+      if (statusText == "Created") {
+        toast.success("Your category has been added successfully!", {
+          position: "top-right",
+        });
+      }
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const categorySlice = createSlice({
   name: "allCategory",
   initialState,
@@ -91,6 +123,14 @@ const categorySlice = createSlice({
         state.paginationResult = action.payload.paginationResult;
         state.isLoading = false;
         state.isError = null;
+      })
+      .addCase(AddCategory.fulfilled, (state) => {
+        console.log(state);
+      })
+      .addCase(AddCategory.rejected, (_, action) => {
+        const errorObj = action.payload as AxiosError<IErrorResponse>;
+        const errorMsg = errorObj.response?.data.error.message;
+        toast.error(`${errorMsg}`);
       });
   },
 });

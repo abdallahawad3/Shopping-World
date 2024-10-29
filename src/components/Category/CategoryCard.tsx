@@ -6,11 +6,14 @@ interface IProps {
 }
 
 const CategoryCard = ({ category }: IProps) => {
+  const img = category.image.indexOf("https");
+  console.log(category.image);
+
   return (
     <div className="cursor-pointer rounded border p-2 text-center shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <div className="mb-2 flex items-center justify-center ">
         <img
-          src={category.image.slice(33)}
+          src={img == 33 ? category.image.slice(img) : category.image}
           className="size-48 rounded-sm   "
           alt="Laptop Image"
         />
