@@ -7,7 +7,6 @@ interface IProps {
 
 const CategoryCard = ({ category }: IProps) => {
   const img = category.image.indexOf("https");
-  console.log(category.image);
 
   return (
     <div className="cursor-pointer rounded border p-2 text-center shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">

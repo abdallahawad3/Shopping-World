@@ -1,9 +1,16 @@
 export interface ICategory {
-  id: string;
+  _id: string;
   image: string;
   name: string;
   slug: string;
 }
+export interface IBrand {
+  _id: string;
+  image: string;
+  name: string;
+  slug: string;
+}
+
 export interface IErrorResponse {
   error: {
     details?: {
