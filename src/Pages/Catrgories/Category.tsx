@@ -2,18 +2,25 @@ import CategoryCard from "../../components/Category/CategoryCard";
 import Pagination from "../../components/utils/Pagination";
 import { useAppDispatch, type RootState } from "../../app/store";
 import { useEffect } from "react";
-import { getAllCategory } from "../../app/feature/CategorySlice/CategorySlice";
+import {
+  getAllCategory,
+  getPaginationCategory,
+} from "../../app/feature/CategorySlice/CategorySlice";
 import { useSelector } from "react-redux";
 
 const CategoryPage = () => {
-  const { data, isLoading } = useSelector(
-    (state: RootState) => state.allCategory,
-  );
+  const {
+    data,
+    isLoading,
+    paginationResult: { numberOfPages },
+  } = useSelector((state: RootState) => state.allCategory);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getAllCategory(7));
+    dispatch(getAllCategory(5));
   }, [dispatch]);
-
+  const clickPage = (val: number) => {
+    dispatch(getPaginationCategory(val));
+  };
   if (isLoading) return <h1>Loading...🔃🔃</h1>;
 
   return (
@@ -24,7 +31,7 @@ const CategoryPage = () => {
         ))}
       </div>
       <div className="text-center">
-        <Pagination />
+        <Pagination onClickPage={clickPage} numsOfPages={numberOfPages} />
       </div>
     </main>
   );

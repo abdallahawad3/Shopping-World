@@ -47,6 +47,23 @@ export const getAllCategory = createAsyncThunk(
   },
 );
 
+// Fetch All Categories Pagination..✅
+export const getPaginationCategory = createAsyncThunk(
+  "allCategory/getPaginationCategory",
+  async (page: number = 7, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const { data } = await axiosInstance.get(
+        `/categories?limit=5&page=${page}`,
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error instanceof Error ? error.message : "An error occurred",
+      );
+    }
+  },
+);
 const categorySlice = createSlice({
   name: "allCategory",
   initialState,
@@ -68,6 +85,12 @@ const categorySlice = createSlice({
       .addCase(getAllCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload as string;
+      })
+      .addCase(getPaginationCategory.fulfilled, (state, action) => {
+        state.data = action.payload.data;
+        state.paginationResult = action.payload.paginationResult;
+        state.isLoading = false;
+        state.isError = null;
       });
   },
 });
