@@ -126,7 +126,9 @@ const categorySlice = createSlice({
         const errorPayload = action.payload as {
           response: { data: { message: string } };
         };
-        toast.error(errorPayload.response.data.message);
+        toast.error(errorPayload.response.data.message, {
+          position: "top-right",
+        });
       });
   },
 });

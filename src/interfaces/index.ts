@@ -11,6 +11,12 @@ export interface IBrand {
   slug: string;
 }
 
+export interface ISubCategory {
+  _id: string;
+  name: string;
+  category: string;
+}
+
 export interface IErrorResponse {
   error: {
     details?: {

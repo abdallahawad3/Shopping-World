@@ -37,7 +37,7 @@ const AddBrand = () => {
         errorMessage += "Must select an image.";
       }
 
-      toast.error(errorMessage.trim());
+      toast.error(errorMessage.trim(), { position: "top-right" });
     }
 
     if (brandName.length > 0 && selectedFile != null) {

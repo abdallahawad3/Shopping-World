@@ -35,7 +35,7 @@ const AddCategoryPage = () => {
         errorMessage += "Must select an image.";
       }
 
-      toast.error(errorMessage.trim());
+      toast.error(errorMessage.trim(), { position: "top-right" });
     }
     setIsLoading(true);
     if (categoryName && selectedFile) {
