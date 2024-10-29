@@ -9,6 +9,7 @@ import { addSubCategory } from "../../app/feature/subCategorySlice/subCategorySl
 const AddSubCategoryPage = () => {
   const [subCategoryName, setSubCategoryName] = useState<string>("");
   const { data } = useSelector((state: RootState) => state.allCategory);
+  const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
 
   const [selected, setSelected] = useState({
@@ -21,10 +22,14 @@ const AddSubCategoryPage = () => {
   useEffect(() => {
     dispatch(getAllCategory(60));
     setSelected(selected);
-  }, [dispatch, selected]);
+    if (loading) {
+      setSelected({ _id: "", slug: "", image: "", name: "" });
+      setSubCategoryName("");
+    }
+  }, [dispatch, selected, loading]);
 
   // Submit Handlers
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const x = Object.values(selected);
@@ -53,8 +58,9 @@ const AddSubCategoryPage = () => {
       };
       data.name = subCategoryName;
       data.category = selected._id;
-
-      dispatch(addSubCategory(data));
+      setLoading(true);
+      await dispatch(addSubCategory(data));
+      setLoading(false);
     }
   };
 

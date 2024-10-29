@@ -69,7 +69,8 @@ const subCategorySlice = createSlice({
         state.data = action.payload.data;
       },
     ),
-      builder.addCase(addSubCategory.rejected, (_, action) => {
+      builder.addCase(addSubCategory.rejected, (state, action) => {
+        state.isLoading = false;
         const errorPayload = action.payload as {
           response: { data: { message: string } };
         };
