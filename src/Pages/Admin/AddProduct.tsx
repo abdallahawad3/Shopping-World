@@ -1,8 +1,38 @@
 import type { ChangeEvent } from "react";
 import uploadImg from "../../../public/upload.png";
+import { useState, useEffect } from "react";
 import SelectMenu from "../../components/utils/SelectMenu";
+import { useSelector } from "react-redux";
+import { useAppDispatch, type RootState } from "../../app/store";
+import { getAllCategory } from "../../app/feature/CategorySlice/CategorySlice";
+import { getAllBrand } from "../../app/feature/Brands/brandSlice";
 
 const AddProductPage = () => {
+  const { data: categoryData } = useSelector(
+    (state: RootState) => state.allCategory,
+  );
+  const { data: brandData } = useSelector((state: RootState) => state.allBrand);
+  const dispatch = useAppDispatch();
+  const [selectedCategory, setSelectedCategory] = useState({
+    _id: "",
+    slug: "",
+    image: "",
+    name: "",
+  });
+  const [selectedBrand, setSelectedBrand] = useState({
+    _id: "",
+    slug: "",
+    image: "",
+    name: "",
+  });
+
+  useEffect(() => {
+    dispatch(getAllCategory(60));
+    dispatch(getAllBrand());
+    setSelectedCategory(selectedCategory);
+    setSelectedBrand(selectedBrand);
+  }, [dispatch, selectedCategory, selectedBrand]);
+
   const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(e);
   };
@@ -75,7 +105,14 @@ const AddProductPage = () => {
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           />
         </div>
-        <SelectMenu selectFor="Category" />
+        {selectedCategory && (
+          <SelectMenu
+            category={categoryData}
+            selected={selectedCategory && selectedCategory}
+            setSelected={setSelectedCategory}
+            selectFor="Category"
+          />
+        )}
         <div className="mb-6">
           <label
             htmlFor="large-input"
@@ -88,7 +125,14 @@ const AddProductPage = () => {
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           />
         </div>
-        <SelectMenu selectFor="Brand" />
+        {selectedBrand && (
+          <SelectMenu
+            category={brandData}
+            selected={selectedBrand}
+            setSelected={setSelectedBrand}
+            selectFor="Brands"
+          />
+        )}
         <div className="flex justify-end">
           <button
             type="button"

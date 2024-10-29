@@ -39,7 +39,7 @@ const SelectMenu = ({ selectFor, category, selected, setSelected }: IProps) => {
               alt=""
               src={
                 selected.image.search("https:") !== -1
-                  ? selected.image.slice(33)
+                  ? selected.image.slice(selected.image.search("https:"))
                   : selected.image
               }
               className="size-5 shrink-0 rounded-full"
@@ -68,7 +68,7 @@ const SelectMenu = ({ selectFor, category, selected, setSelected }: IProps) => {
                 <img
                   src={
                     cat.image.search("https:") !== -1
-                      ? cat.image.slice(33)
+                      ? cat.image.slice(cat.image.search("https:"))
                       : cat.image
                   }
                   className="size-5 shrink-0 rounded-full"
