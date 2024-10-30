@@ -3,7 +3,7 @@ const ProductSidebar = () => {
     <>
       {/* <!-- drawer component --> */}
       <form
-        className=" w-[250px] bg-white p-4 dark:bg-gray-800"
+        className=" h-full w-[250px] overflow-y-auto border-r border-gray-200 bg-white bg-white p-4 px-3 py-5 dark:border-gray-700 dark:bg-gray-800 dark:bg-gray-800"
         tabIndex={1}
         aria-labelledby="drawer-label"
       >

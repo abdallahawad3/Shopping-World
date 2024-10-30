@@ -1,8 +1,14 @@
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import type { IProduct } from "../../interfaces";
+import { textSlice } from "../../utils";
 
-const ProductCard = () => {
+interface IProps {
+  product: IProduct;
+}
+
+const ProductCard = ({ product }: IProps) => {
   const isLogged = false;
 
   return (
@@ -13,15 +19,14 @@ const ProductCard = () => {
       className="max-h-fit rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
     >
       <div className="h-56 w-full">
-        <Link to="/product/1">
+        <Link to={`/product/${product._id}`}>
           <img
-            className="mx-auto h-full dark:hidden"
-            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
-            alt=""
-          />
-          <img
-            className="mx-auto hidden h-full dark:block"
-            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
+            className="mx-auto h-full "
+            src={
+              product.imageCover.search("https:") != -1
+                ? product.imageCover.slice(product.imageCover.search("https:"))
+                : product.imageCover
+            }
             alt=""
           />
         </Link>
@@ -33,7 +38,7 @@ const ProductCard = () => {
           </span>
           <div className="flex items-center justify-end gap-1">
             <Link
-              to={"/product/1"}
+              to={`/product/${product._id}`}
               data-tooltip-target="tooltip-quick-look"
               className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
@@ -109,10 +114,10 @@ const ProductCard = () => {
         </div>
 
         <Link
-          to="/product/1"
+          to={`/product/${product._id}`}
           className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
         >
-          Apple iMac 27", 1TB HDD, Retina 5K Display, M3 Max
+          {textSlice(product.title, 15)}
         </Link>
 
         <div className="mt-2 flex items-center gap-2">
@@ -165,10 +170,10 @@ const ProductCard = () => {
           </div>
 
           <p className="text-sm font-medium text-gray-900 dark:text-white">
-            5.0
+            {product.ratingsQuantity}
           </p>
           <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            (455)
+            {product.quantity}
           </p>
         </div>
 
@@ -217,7 +222,7 @@ const ProductCard = () => {
 
         <div className="mt-4 flex items-center justify-between gap-4">
           <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-            $1,699
+            ${product.price}
           </p>
 
           <button

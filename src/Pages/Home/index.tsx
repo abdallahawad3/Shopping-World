@@ -3,8 +3,27 @@ import CardProductsSection from "../../components/Home/CardProductsSection";
 import Slider from "../../components/Home/Slider";
 import Discount from "../../components/Home/Discount";
 import BrandsSection from "../../components/Home/BrandsSection";
+import { useSelector } from "react-redux";
+import { useAppDispatch, type RootState } from "../../app/store";
+import { useEffect } from "react";
+import {
+  fetchBeauty,
+  fetchMostSales,
+  fetchRecommendForYou,
+} from "../../app/feature/ProductsSlice/productsSlice";
 
 const HomePage = () => {
+  const { beauty, mostSales, recommendForYou, isLoading } = useSelector(
+    (state: RootState) => state.allProducts,
+  );
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchMostSales());
+    dispatch(fetchRecommendForYou());
+    dispatch(fetchBeauty());
+  }, [dispatch]);
+
   return (
     <>
       <section className="">
@@ -14,10 +33,20 @@ const HomePage = () => {
         <HomeCategory />
       </section>
       <section className="container py-10">
-        <CardProductsSection title="Most Sales" btnTitle="Show More" />
+        <CardProductsSection
+          products={mostSales}
+          isLoading={isLoading}
+          title="Most Sales"
+          btnTitle="Show More"
+        />
       </section>
       <section className="container py-10">
-        <CardProductsSection title="Recommended for you" btnTitle="" />
+        <CardProductsSection
+          products={recommendForYou}
+          isLoading={isLoading}
+          title="Recommended for you"
+          btnTitle=""
+        />
       </section>
       <section className="container py-10">
         <Discount />
@@ -26,7 +55,12 @@ const HomePage = () => {
         <BrandsSection title="All Brands" btnTitle="Show All Brands" />
       </section>
       <section className="container py-10">
-        <CardProductsSection title="Beauty picks" btnTitle="Show More" />
+        <CardProductsSection
+          products={beauty}
+          isLoading={isLoading}
+          title="Beauty picks"
+          btnTitle="Show More"
+        />
       </section>
     </>
   );
