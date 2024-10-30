@@ -35,9 +35,9 @@ const initialState: BrandState = {
 
 export const getAllBrand = createAsyncThunk(
   "allBrand/getAllBrand",
-  async (_, { rejectWithValue }) => {
+  async (limit: number = 5, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.get("/brands?limit=5");
+      const { data } = await axiosInstance.get(`/brands?limit=${limit}`);
       return data;
     } catch (error) {
       rejectWithValue(error);

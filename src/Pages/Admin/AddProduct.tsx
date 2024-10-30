@@ -28,7 +28,7 @@ const AddProductPage = () => {
 
   useEffect(() => {
     dispatch(getAllCategory(60));
-    dispatch(getAllBrand());
+    dispatch(getAllBrand(20));
     setSelectedCategory(selectedCategory);
     setSelectedBrand(selectedBrand);
   }, [dispatch, selectedCategory, selectedBrand]);
@@ -113,6 +113,14 @@ const AddProductPage = () => {
             selectFor="Category"
           />
         )}
+        {selectedBrand && (
+          <SelectMenu
+            category={brandData}
+            selected={selectedBrand}
+            setSelected={setSelectedBrand}
+            selectFor="Brands"
+          />
+        )}
         <div className="mb-6">
           <label
             htmlFor="large-input"
@@ -125,14 +133,7 @@ const AddProductPage = () => {
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           />
         </div>
-        {selectedBrand && (
-          <SelectMenu
-            category={brandData}
-            selected={selectedBrand}
-            setSelected={setSelectedBrand}
-            selectFor="Brands"
-          />
-        )}
+
         <div className="flex justify-end">
           <button
             type="button"
