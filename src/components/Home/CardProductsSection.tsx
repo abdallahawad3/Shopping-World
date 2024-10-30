@@ -22,7 +22,7 @@ const CardProductsSection = ({
       <div className="mt-5 grid  gap-4 px-10 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {products &&
           products
-            .slice(0, 4)
+            .slice(-4)
             .map((ele) => <ProductCard product={ele} key={ele._id} />)}
       </div>
     </div>

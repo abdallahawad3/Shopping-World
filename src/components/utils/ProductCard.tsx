@@ -13,9 +13,9 @@ const ProductCard = ({ product }: IProps) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
+      initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.75 }}
+      transition={{ duration: 0.4 }}
       className="max-h-fit rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
     >
       <div className="h-56 w-full">

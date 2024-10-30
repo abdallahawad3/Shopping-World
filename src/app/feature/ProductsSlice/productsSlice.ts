@@ -4,6 +4,8 @@ import { axiosInstance } from "../../../config/axios.config";
 import toast from "react-hot-toast";
 
 interface IProductState {
+  singleProduct: IProduct;
+  productsCategory: IProduct[];
   allProduct: IProduct[];
   mostSales: IProduct[];
   recommendForYou: IProduct[];
@@ -19,6 +21,23 @@ interface IProductState {
 }
 
 const initialState: IProductState = {
+  productsCategory: [],
+  singleProduct: {
+    _id: "",
+    title: "",
+    slug: "",
+    description: "",
+    quantity: 0,
+    sold: 0,
+    price: 0,
+    priceAfterDiscount: 0,
+    availableColors: [""],
+    imageCover: "",
+    images: [""],
+    category: "",
+    subcategory: [""],
+    ratingsQuantity: 0,
+  },
   allProduct: [],
   mostSales: [],
   recommendForYou: [],
@@ -41,6 +60,36 @@ export const getAllProducts = createAsyncThunk(
       const { data, status } = await axiosInstance.get("/products?limit=10");
       if (status === 200) {
         console.log("GET ALL DATA SUCCESS..👋👋👋");
+        return data;
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const getSingleProduct = createAsyncThunk(
+  "products/getSingleProduct",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const { data, status } = await axiosInstance.get(`/products/${id}`);
+      if (status === 200) {
+        return data;
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const getProductsWithCategory = createAsyncThunk(
+  "products/getProductsWithCategory",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const { data, status } = await axiosInstance.get(
+        `/products/?category[in][]=${id}`,
+      );
+      if (status === 200) {
         return data;
       }
     } catch (error) {
@@ -146,6 +195,32 @@ const productSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchBeauty.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = action.payload as string;
+        toast.error(state.isError, { position: "top-right" });
+      })
+      // Fetch Single Product
+      .addCase(getSingleProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSingleProduct.fulfilled, (state, action) => {
+        state.singleProduct = action.payload.data;
+        state.isLoading = false;
+      })
+      .addCase(getSingleProduct.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = action.payload as string;
+        toast.error(state.isError, { position: "top-right" });
+      })
+      // Products in same category
+      .addCase(getProductsWithCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getProductsWithCategory.fulfilled, (state, action) => {
+        state.productsCategory = action.payload.data;
+        state.isLoading = false;
+      })
+      .addCase(getProductsWithCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload as string;
         toast.error(state.isError, { position: "top-right" });

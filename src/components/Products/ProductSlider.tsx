@@ -11,46 +11,47 @@ import "swiper/css/thumbs";
 
 import "./styles.css";
 
-// import required modules
+interface IProps {
+  imageCover: string;
+  images: string[];
+}
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
-export default function ProductSlider() {
+export default function ProductSlider({ imageCover, images }: IProps) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   return (
     <>
       <Swiper
-        loop
+        loop={true}
         spaceBetween={10}
         navigation={true}
-        thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined} // Check if thumbsSwiper is not null
+        thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
         <SwiperSlide>
           <img
-            src="https://swiperjs.com/demos/images/nature-1.jpg"
+            src={
+              imageCover.search("https") !== -1
+                ? imageCover.slice(imageCover.search("https"))
+                : imageCover
+            }
             alt="Nature 1"
           />
         </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://swiperjs.com/demos/images/nature-2.jpg"
-            alt="Nature 2"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://swiperjs.com/demos/images/nature-3.jpg"
-            alt="Nature 3"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://swiperjs.com/demos/images/nature-4.jpg"
-            alt="Nature 4"
-          />
-        </SwiperSlide>
+        {images.map((ele, idx) => (
+          <SwiperSlide key={idx}>
+            <img
+              src={
+                ele.search("https") !== -1
+                  ? ele.slice(ele.search("https"))
+                  : ele
+              }
+              alt="Nature 2"
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -63,28 +64,26 @@ export default function ProductSlider() {
       >
         <SwiperSlide>
           <img
-            src="https://swiperjs.com/demos/images/nature-1.jpg"
-            alt="Nature Thumb 1"
+            src={
+              imageCover.search("https") !== -1
+                ? imageCover.slice(imageCover.search("https"))
+                : imageCover
+            }
+            alt="Nature 1"
           />
         </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://swiperjs.com/demos/images/nature-2.jpg"
-            alt="Nature Thumb 2"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://swiperjs.com/demos/images/nature-3.jpg"
-            alt="Nature Thumb 3"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src="https://swiperjs.com/demos/images/nature-4.jpg"
-            alt="Nature Thumb 4"
-          />
-        </SwiperSlide>
+        {images.map((ele, idx) => (
+          <SwiperSlide key={idx}>
+            <img
+              src={
+                ele.search("https") !== -1
+                  ? ele.slice(ele.search("https"))
+                  : ele
+              }
+              alt="Nature 2"
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );

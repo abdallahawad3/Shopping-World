@@ -13,8 +13,8 @@ const RatingStars = ({
   maxStars = 5,
   rating,
   onChange,
-  size = 24,
-  color = "#ffd700",
+  size = 20,
+  color = "#faca15",
   precision = 0.5,
 }: IProps) => {
   const [hoverRating, setHoverRating] = useState<number | null>(null);
