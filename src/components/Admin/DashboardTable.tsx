@@ -1,5 +1,12 @@
-import Pagination from "../utils/Pagination";
+import { Link } from "react-router-dom";
+import { useGetDashboardProductsQuery } from "../../app/services/dashboardProductApi";
+import { textSlice } from "../../utils";
+// import Pagination from "../utils/Pagination";
 const DashboardTable = () => {
+  const { isLoading, data } = useGetDashboardProductsQuery(`${10}`);
+  console.log(isLoading, data?.data);
+
+  if (isLoading) return <h1>LOADING...👋👋</h1>;
   return (
     <section className="mt-7 bg-gray-50 p-3 sm:p-5 md:ms-[16rem] dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
@@ -38,7 +45,8 @@ const DashboardTable = () => {
               </form>
             </div>
             <div className="flex w-full shrink-0 flex-col items-stretch justify-end space-y-2 md:w-auto md:flex-row md:items-center md:space-x-3 md:space-y-0">
-              <button
+              <Link
+                to={"/admin/addProduct"}
                 type="button"
                 className="flex items-center justify-center rounded-lg bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
@@ -56,7 +64,7 @@ const DashboardTable = () => {
                   />
                 </svg>
                 Add product
-              </button>
+              </Link>
             </div>
           </div>
           <div className="overflow-x-auto">
@@ -70,10 +78,10 @@ const DashboardTable = () => {
                     Product name
                   </th>
                   <th scope="col" className="px-4 py-3">
-                    Category
+                    Category Id
                   </th>
                   <th scope="col" className="px-4 py-3">
-                    Brand
+                    Sold
                   </th>
                   <th scope="col" className="px-4 py-3">
                     Description
@@ -81,36 +89,55 @@ const DashboardTable = () => {
                   <th scope="col" className="px-4 py-3">
                     Price
                   </th>
-                  <th scope="col" className="px-4 py-3">
-                    <span className="sr-only">Actions</span>
+                  <th scope="col" className="px-4 py-3 text-center">
+                    Actions
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b dark:border-gray-700">
-                  <td className="whitespace-nowrap px-4 py-3 ">
-                    <img
-                      src="./ecommerce.svg"
-                      alt=""
-                      className="size-12 rounded-full bg-contain"
-                    />
-                  </td>
-                  <td className="px-4 py-3"> Apple iMac 27"</td>
-                  <td className="px-4 py-3">PC</td>
-                  <td className="px-4 py-3">Apple</td>
-                  <td className="px-4 py-3">300</td>
-                  <td className="px-4 py-3">$2999</td>
-                  <td className="flex items-center justify-end px-4 py-3">
-                    <button
-                      id="apple-imac-27-dropdown-button"
-                      data-dropdown-toggle="apple-imac-27-dropdown"
-                      className="inline-flex items-center rounded-lg p-0.5 text-center text-sm font-medium text-gray-500 hover:text-gray-800 focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                      type="button"
-                    >
-                      Add
-                    </button>
-                  </td>
-                </tr>
+                {data?.data &&
+                  data?.data.map((ele) => (
+                    <tr key={ele._id} className="border-b dark:border-gray-700">
+                      <td className="whitespace-nowrap px-4 py-3 ">
+                        <img
+                          src={
+                            ele.imageCover.search("https") != -1
+                              ? ele.imageCover.slice(
+                                  ele.imageCover.search("https"),
+                                )
+                              : ele.imageCover
+                          }
+                          alt=""
+                          className="size-12 rounded-full bg-contain"
+                        />
+                      </td>
+                      <td className="px-4 py-3"> {textSlice(ele.title, 8)}</td>
+                      <td className="px-4 py-3">{ele.category}</td>
+                      <td className="px-4 py-3">{ele.sold}</td>
+                      <td className="px-4 py-3">
+                        {textSlice(ele.description, 10)}
+                      </td>
+                      <td className="px-4 py-3">${ele.price}</td>
+                      <td className="flex items-center justify-end gap-2 px-4 py-3">
+                        <button
+                          id="apple-imac-27-dropdown-button"
+                          data-dropdown-toggle="apple-imac-27-dropdown"
+                          className="flex items-center justify-center rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                          type="button"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          id="apple-imac-27-dropdown-button"
+                          data-dropdown-toggle="apple-imac-27-dropdown"
+                          className="flex items-center justify-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                          type="button"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
@@ -128,7 +155,7 @@ const DashboardTable = () => {
                 1000
               </span>
             </span>
-            <Pagination />
+            {/* <Pagination /> */}
           </nav>
         </div>
       </div>

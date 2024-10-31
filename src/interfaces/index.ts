@@ -15,6 +15,17 @@ export interface IProduct {
   ratingsQuantity: number;
 }
 
+export interface IDataResponse {
+  data: IProduct[];
+  paginationResult: {
+    currentPage: number;
+    limit: number;
+    numberOfPages: number;
+    nextPage: number;
+  };
+  results: number;
+}
+
 export interface ICategory {
   _id: string;
   image: string;

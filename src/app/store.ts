@@ -4,6 +4,7 @@ import categorySlice from "./feature/CategorySlice/CategorySlice";
 import brandSlice from "./feature/Brands/brandSlice";
 import subCategorySlice from "./feature/subCategorySlice/subCategorySlice";
 import productSlice from "./feature/ProductsSlice/productsSlice";
+import { dashboardProductApi } from "./services/dashboardProductApi";
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,10 @@ export const store = configureStore({
     allCategory: categorySlice,
     allBrand: brandSlice,
     subCategory: subCategorySlice,
+    [dashboardProductApi.reducerPath]: dashboardProductApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(dashboardProductApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
