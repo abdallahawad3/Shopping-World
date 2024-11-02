@@ -38,13 +38,26 @@ export interface IBrand {
   name: string;
   slug: string;
 }
-
 export interface ISubCategory {
   _id: string;
   name: string;
   category: string;
 }
 
+export interface IAddProduct {
+  description: string;
+  title: string;
+  quantity: number;
+  price: number;
+  subcategory: string;
+}
+
+export interface IAddProductInputs {
+  id: "description" | "title" | "quantity" | "price" | "subcategory";
+  label: string;
+  name: "description" | "title" | "quantity" | "price" | "subcategory";
+  type: string;
+}
 export interface IErrorResponse {
   error: {
     details?: {

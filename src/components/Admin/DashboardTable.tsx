@@ -1,12 +1,26 @@
 import { Link } from "react-router-dom";
 import { useGetDashboardProductsQuery } from "../../app/services/dashboardProductApi";
 import { textSlice } from "../../utils";
-// import Pagination from "../utils/Pagination";
+import Pagination from "../utils/Pagination";
+import { useState } from "react";
 const DashboardTable = () => {
-  const { isLoading, data } = useGetDashboardProductsQuery(`${10}`);
-  console.log(isLoading, data?.data);
+  const [page, setPage] = useState(1);
+  const { isLoading, data } = useGetDashboardProductsQuery({
+    limit: 6,
+    page: page,
+  });
+
+  //! Handlers
+  const onClick = (page: number) => {
+    setPage(page);
+  };
+
+  const handleClickProduct = (id: string) => {
+    console.log(id);
+  };
 
   if (isLoading) return <h1>LOADING...👋👋</h1>;
+
   return (
     <section className="mt-7 bg-gray-50 p-3 sm:p-5 md:ms-[16rem] dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
@@ -120,6 +134,9 @@ const DashboardTable = () => {
                       <td className="px-4 py-3">${ele.price}</td>
                       <td className="flex items-center justify-end gap-2 px-4 py-3">
                         <button
+                          onClick={() => {
+                            handleClickProduct(ele._id);
+                          }}
                           id="apple-imac-27-dropdown-button"
                           data-dropdown-toggle="apple-imac-27-dropdown"
                           className="flex items-center justify-center rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
@@ -128,6 +145,9 @@ const DashboardTable = () => {
                           Edit
                         </button>
                         <button
+                          onClick={() => {
+                            handleClickProduct(ele._id);
+                          }}
                           id="apple-imac-27-dropdown-button"
                           data-dropdown-toggle="apple-imac-27-dropdown"
                           className="flex items-center justify-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
@@ -144,19 +164,15 @@ const DashboardTable = () => {
           <nav
             className="flex flex-col items-start justify-between space-y-3 p-4 md:flex-row md:items-center md:space-y-0"
             aria-label="Table navigation"
-          >
-            <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-              Showing
-              <span className="font-semibold text-gray-900 dark:text-white">
-                1-10
-              </span>
-              of
-              <span className="font-semibold text-gray-900 dark:text-white">
-                1000
-              </span>
-            </span>
-            {/* <Pagination /> */}
-          </nav>
+          ></nav>
+          <div className="mb-6 text-center">
+            {data?.paginationResult.numberOfPages && (
+              <Pagination
+                numsOfPages={data?.paginationResult.numberOfPages}
+                onClickPage={onClick}
+              />
+            )}
+          </div>
         </div>
       </div>
     </section>

@@ -8,10 +8,20 @@ export const dashboardProductApi = createApi({
     baseUrl: "http://127.0.0.1:8000/api/v1",
   }),
   endpoints: (builder) => ({
-    getDashboardProducts: builder.query<IDataResponse, string>({
-      query: (limit) => {
+    getDashboardProducts: builder.query<
+      IDataResponse,
+      { limit: number; page: number }
+    >({
+      query: ({ limit, page }) => {
         return {
-          url: `/products?limit=${limit}`,
+          url: `/products?limit=${limit}&page=${page}`,
+        };
+      },
+    }),
+    getPaginationData: builder.query<IDataResponse, number>({
+      query(page: number) {
+        return {
+          url: `/products?page=${page}`,
         };
       },
     }),
@@ -30,4 +40,8 @@ export const dashboardProductApi = createApi({
   }),
 });
 
-export const { useGetDashboardProductsQuery } = dashboardProductApi;
+export const {
+  useGetDashboardProductsQuery,
+  useAddNewProductMutation,
+  useGetPaginationDataQuery,
+} = dashboardProductApi;

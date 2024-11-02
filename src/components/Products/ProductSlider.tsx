@@ -28,7 +28,7 @@ export default function ProductSlider({ imageCover, images }: IProps) {
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2"
+        className="mySwiper2 h-[400px]"
       >
         <SwiperSlide>
           <img
@@ -60,7 +60,7 @@ export default function ProductSlider({ imageCover, images }: IProps) {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper"
+        className="mySwiper h-28"
       >
         <SwiperSlide>
           <img
