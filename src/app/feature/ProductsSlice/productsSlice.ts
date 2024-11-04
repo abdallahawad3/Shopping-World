@@ -55,11 +55,12 @@ const initialState: IProductState = {
 // Thunks
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",
-  async (_, { rejectWithValue }) => {
+  async (page: number, { rejectWithValue }) => {
     try {
-      const { data, status } = await axiosInstance.get("/products?limit=10");
+      const { data, status } = await axiosInstance.get(
+        `/products?limit=8&page=${page}`,
+      );
       if (status === 200) {
-        console.log("GET ALL DATA SUCCESS..👋👋👋");
         return data;
       }
     } catch (error) {
