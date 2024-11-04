@@ -35,8 +35,6 @@ const Pagination = ({ numsOfPages, onClickPage }: IProps) => {
           <li
             className={`flex h-10 cursor-pointer ${pageClicked == 0 ? "cursor-not-allowed hover:bg-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 " : "cursor-pointer hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"} items-center justify-center rounded-e-lg border border-gray-300 bg-white px-4 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
             onClick={() => {
-              console.log(pageClicked);
-
               onClickPage(pageClicked + 1);
             }}
           >

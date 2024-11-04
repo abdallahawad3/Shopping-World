@@ -32,6 +32,7 @@ export default function ProductSlider({ imageCover, images }: IProps) {
       >
         <SwiperSlide>
           <img
+            className="scale-90"
             src={
               imageCover.search("https") !== -1
                 ? imageCover.slice(imageCover.search("https"))
@@ -43,6 +44,7 @@ export default function ProductSlider({ imageCover, images }: IProps) {
         {images.map((ele, idx) => (
           <SwiperSlide key={idx}>
             <img
+              className="scale-90"
               src={
                 ele.search("https") !== -1
                   ? ele.slice(ele.search("https"))

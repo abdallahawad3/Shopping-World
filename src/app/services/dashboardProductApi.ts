@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { IDataResponse } from "../../interfaces";
+import type { IDataResponse, IProduct } from "../../interfaces";
 
 export const dashboardProductApi = createApi({
   reducerPath: "dashboardProducts",
@@ -17,13 +17,50 @@ export const dashboardProductApi = createApi({
           url: `/products?limit=${limit}&page=${page}`,
         };
       },
+
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.data.map(({ _id }: IProduct) => ({
+                type: "DashboardProduct" as const,
+                id: _id,
+              })),
+              { type: "DashboardProduct", id: "LIST" },
+            ]
+          : [{ type: "DashboardProduct", id: "LIST" }],
     }),
-    getPaginationData: builder.query<IDataResponse, number>({
-      query(page: number) {
+    updateProduct: builder.mutation({
+      query: ({ data, id }) => {
         return {
-          url: `/products?page=${page}`,
+          url: `/products/${id}`,
+          method: "PUT",
+          body: data,
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`,
+          },
         };
       },
+      onQueryStarted: async (
+        { id, ...patch },
+        { dispatch, queryFulfilled },
+      ) => {
+        const patchResult = dispatch(
+          dashboardProductApi.util.updateQueryData(
+            "getDashboardProducts",
+            id,
+            (draft) => {
+              Object.assign(draft, patch);
+            },
+          ),
+        );
+        try {
+          await queryFulfilled;
+        } catch (error) {
+          console.error("Request failed:", error);
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: [{ type: "DashboardProduct", id: "LIST" }],
     }),
     addNewProduct: builder.mutation({
       query: (data) => {
@@ -32,10 +69,22 @@ export const dashboardProductApi = createApi({
           method: "POST",
           body: data,
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`, // replace `yourJwtToken` with the actual JWT
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`,
           },
         };
       },
+    }),
+    deleteProduct: builder.mutation({
+      query: (id: string) => {
+        return {
+          url: `/products/${id}`,
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`,
+          },
+        };
+      },
+      invalidatesTags: [{ type: "DashboardProduct", id: "LIST" }],
     }),
   }),
 });
@@ -43,5 +92,6 @@ export const dashboardProductApi = createApi({
 export const {
   useGetDashboardProductsQuery,
   useAddNewProductMutation,
-  useGetPaginationDataQuery,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
 } = dashboardProductApi;
