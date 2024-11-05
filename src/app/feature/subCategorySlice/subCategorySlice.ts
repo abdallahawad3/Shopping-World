@@ -6,6 +6,7 @@ import {
 import { axiosInstance } from "../../../config/axios.config";
 import type { ISubCategory } from "../../../interfaces";
 import toast from "react-hot-toast";
+import CookieService from "../../../services/CookieService";
 
 interface ISubCategoryState {
   isLoading: boolean;
@@ -21,8 +22,10 @@ const initialState: ISubCategoryState = {
   isLoading: false,
 };
 
-// Post New SubCategory..✅
+const user = CookieService.get("user");
+const token = user.token;
 
+// Post New SubCategory..✅
 export const addSubCategory = createAsyncThunk(
   "subCategory/addSubCategory",
   async (data: { name: string; category: string }, { rejectWithValue }) => {
@@ -35,8 +38,7 @@ export const addSubCategory = createAsyncThunk(
         },
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTczMDIyNTEzNiwiZXhwIjoxNzM4MDAxMTM2fQ.NEXWYK1nC-O-NEnlC90TGJ7ri1jPBBMqDBmY5Vbg-rY",
+            Authorization: `Bearer ${token}`,
           },
         },
       );

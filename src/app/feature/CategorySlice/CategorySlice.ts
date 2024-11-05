@@ -6,6 +6,9 @@ import {
 import type { ICategory } from "../../../interfaces";
 import { axiosInstance } from "../../../config/axios.config";
 import toast from "react-hot-toast";
+import CookieService from "../../../services/CookieService";
+const user = CookieService.get("user");
+const token = user.token;
 
 interface CategoryState {
   data: ICategory[];
@@ -77,7 +80,7 @@ export const AddCategory = createAsyncThunk(
         formData,
         {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );

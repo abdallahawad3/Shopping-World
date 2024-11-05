@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { REGISTER_SCHEMA } from "../../validation";
 import { axiosInstance } from "../../config/axios.config";
 import toast from "react-hot-toast";
-import CookieService from "../../services/CookieService";
 import type { AxiosError } from "axios";
 import { useState } from "react";
 
@@ -19,25 +18,21 @@ const RegisterPage = () => {
   } = useForm({
     resolver: yupResolver(REGISTER_SCHEMA),
   });
-  console.log(errors);
 
   const onSubmit: SubmitHandler<IRegister> = async (data) => {
     try {
-      const { status, data: userData } = await axiosInstance.post(
-        "/auth/signup",
-        {
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          passwordConfirm: data.passwordConfirm,
-        },
-      );
+      const { status } = await axiosInstance.post("/auth/signup", {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        passwordConfirm: data.passwordConfirm,
+      });
       if (status === 201) {
         setLoading(true);
         toast.success(
           "Registration successful! You will be redirected to the login page to log in.",
           {
-            position: "bottom-right",
+            position: "top-right",
             duration: 2000,
           },
         );
@@ -45,11 +40,8 @@ const RegisterPage = () => {
           navigate("/login");
           setLoading(false);
         }, 2000);
-
-        CookieService.set("user", userData, {});
       }
     } catch (error) {
-      console.log(error);
       const err = error as AxiosError<{ errors: { msg: string }[] }>;
       err.response?.data?.errors.forEach((error) => {
         toast.error(error.msg, {

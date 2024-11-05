@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import CookieService from "../../services/CookieService";
 
 const NavbarComponent = () => {
-  const isLogin = false;
+  const user = CookieService.get("user") ? CookieService.get("user") : false;
+  const isLogin = user ? user.token : "";
+
   return (
     <nav className="sticky left-0 top-0 z-[100] w-full bg-white antialiased shadow-lg dark:bg-gray-800">
       <div className="mx-auto max-w-screen-xl p-4 2xl:px-0">
@@ -103,7 +106,7 @@ const NavbarComponent = () => {
               </Link>
             </button>
             {/* ACCOUNT */}
-            {isLogin ? (
+            {isLogin.length != 0 ? (
               <>
                 <button
                   id="userDropdownButton1"
@@ -149,55 +152,73 @@ const NavbarComponent = () => {
                   id="userDropdown1"
                   className="z-10 hidden w-56 divide-y divide-gray-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-gray-600 dark:bg-gray-700"
                 >
-                  <ul className="p-2 text-start text-sm font-medium text-gray-900 dark:text-white">
-                    <li>
-                      <Link
-                        to="/user"
-                        className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                      >
-                        My Account
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/user"
-                        className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                      >
-                        My Orders
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/user"
-                        className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                      >
-                        Favorites
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/user/address"
-                        className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                      >
-                        Delivery Addresses
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/user/profile"
-                        className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                      >
-                        My Profile
-                      </Link>
-                    </li>
-                  </ul>
+                  {user.data.role === "user" ? (
+                    <ul className="p-2 text-start text-sm font-medium text-gray-900 dark:text-white">
+                      <li>
+                        <Link
+                          to="/user"
+                          className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                        >
+                          My Account
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/user"
+                          className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                        >
+                          My Orders
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/user"
+                          className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                        >
+                          Favorites
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/user/address"
+                          className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                        >
+                          Delivery Addresses
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/user/profile"
+                          className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                        >
+                          My Profile
+                        </Link>
+                      </li>
+                    </ul>
+                  ) : (
+                    <ul className="p-2 text-start text-sm font-medium text-gray-900 dark:text-white">
+                      <li>
+                        <Link
+                          to="/admin"
+                          className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                        >
+                          Dashboard
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
                   <div className="p-2 text-sm font-medium text-gray-900 dark:text-white">
-                    <button className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                      {" "}
-                      Sign Out{" "}
+                    <button
+                      onClick={() => {
+                        CookieService.remove("user");
+                        window.location.reload();
+                      }}
+                      className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
+                    >
+                      Sign Out
                     </button>
                   </div>
-                </div>{" "}
+                </div>
               </>
             ) : (
               <Link to={"/login"}>

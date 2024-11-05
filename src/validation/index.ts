@@ -48,3 +48,19 @@ export const REGISTER_SCHEMA = yup
       ),
   })
   .required();
+
+export const LOGIN_SCHEMA = yup
+  .object({
+    email: yup
+      .string()
+      .required("This This filed is required")
+      .matches(emailRegex, "Enter a valid email address"),
+    password: yup
+      .string()
+      .required("This This filed is required")
+      .matches(
+        passwordRegex,
+        "Password must be 8+ characters, with uppercase, lowercase, number, and special character",
+      ),
+  })
+  .required();

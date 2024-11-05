@@ -8,10 +8,7 @@ const AdminSidebar = () => {
         <nav className="fixed inset-x-0 top-0 z-50 border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-700 dark:bg-gray-800">
           <div className="flex flex-wrap items-center justify-between">
             <div className="flex items-center justify-start">
-              <Link
-                to="/admin"
-                className="mr-4 flex items-center justify-between"
-              >
+              <Link to="/" className="mr-4 flex items-center justify-between">
                 <img
                   src="../../../public/ecommerce.svg"
                   className="mr-3 h-8"

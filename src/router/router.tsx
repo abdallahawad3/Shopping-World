@@ -26,8 +26,10 @@ import UserHomePage from "../Pages/User";
 import AddressPage from "../Pages/User/Address";
 import ProfilePage from "../components/User/ProfilePage";
 import WishlistPage from "../Pages/User/Wishlist";
+import CookieService from "../services/CookieService";
 
-const isLogged = false;
+const user = CookieService.get("user") ? CookieService.get("user") : false;
+const isLogged = user ? user.token : false;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -57,65 +59,78 @@ const router = createBrowserRouter(
         <Route path="/product/:id" element={<ProductPage />} />
       </Route>
       {/* User Layout */}
-      <Route
-        path="/user"
-        element={
-          <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
-            <UserLayout />
-          </ProtectedRoutes>
-        }
-      >
-        <Route
-          index
-          element={
-            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
-              <UserHomePage />
-            </ProtectedRoutes>
-          }
-        />
-        <Route
-          path="address"
-          element={
-            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
-              <AddressPage />
-            </ProtectedRoutes>
-          }
-        />
-        <Route
-          path="profile"
-          element={
-            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
-              <ProfilePage />
-            </ProtectedRoutes>
-          }
-        />
-        <Route
-          path="cart"
-          element={
-            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
-              <CartPage />
-            </ProtectedRoutes>
-          }
-        />
-        <Route
-          path="wishlist"
-          element={
-            <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
-              <WishlistPage />
-            </ProtectedRoutes>
-          }
-        />
-      </Route>
+      {user ? (
+        user.data.role === "user" && (
+          <Route
+            path="/user"
+            element={
+              <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+                <UserLayout />
+              </ProtectedRoutes>
+            }
+          >
+            <Route
+              index
+              element={
+                <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+                  <UserHomePage />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="address"
+              element={
+                <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+                  <AddressPage />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+                  <ProfilePage />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="cart"
+              element={
+                <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+                  <CartPage />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="wishlist"
+              element={
+                <ProtectedRoutes isAllowed={isLogged} redirectPath="/login">
+                  <WishlistPage />
+                </ProtectedRoutes>
+              }
+            />
+          </Route>
+        )
+      ) : (
+        <></>
+      )}
+
       {/* Admin Layout */}
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<DashboardTable />} />
-        <Route path="orders" element={<OrdersPage />} />
-        <Route path="order/:id" element={<SingleOrderPage />} />
-        <Route path="addBrand" element={<AddBrandPage />} />
-        <Route path="addCategory" element={<AddCategoryPage />} />
-        <Route path="addSubCategory" element={<AddSubCategoryPage />} />
-        <Route path="addProduct" element={<AddProductPage />} />
-      </Route>
+      {user ? (
+        user.data.role === "admin" && (
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<DashboardTable />} />
+            <Route path="orders" element={<OrdersPage />} />
+            <Route path="order/:id" element={<SingleOrderPage />} />
+            <Route path="addBrand" element={<AddBrandPage />} />
+            <Route path="addCategory" element={<AddCategoryPage />} />
+            <Route path="addSubCategory" element={<AddSubCategoryPage />} />
+            <Route path="addProduct" element={<AddProductPage />} />
+          </Route>
+        )
+      ) : (
+        <></>
+      )}
     </>,
   ),
 );

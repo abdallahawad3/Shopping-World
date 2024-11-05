@@ -6,7 +6,10 @@ import {
 import type { IBrand } from "../../../interfaces";
 import { axiosInstance } from "../../../config/axios.config";
 import toast from "react-hot-toast";
+import CookieService from "../../../services/CookieService";
 
+const user = CookieService.get("user");
+const token = user.token;
 interface BrandState {
   data: IBrand[];
   paginationResult: {
@@ -67,7 +70,7 @@ export const addBrand = createAsyncThunk(
     try {
       const { data, status } = await axiosInstance.post("/brands", formData, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTczMDIyNTEzNiwiZXhwIjoxNzM4MDAxMTM2fQ.NEXWYK1nC-O-NEnlC90TGJ7ri1jPBBMqDBmY5Vbg-rY`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (status === 201) {

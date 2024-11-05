@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { IDataResponse, IProduct } from "../../interfaces";
+import CookieService from "../../services/CookieService";
+
+const user = CookieService.get("user");
+const token = user.token;
 
 export const dashboardProductApi = createApi({
   reducerPath: "dashboardProducts",
@@ -36,7 +40,7 @@ export const dashboardProductApi = createApi({
           method: "PUT",
           body: data,
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`,
+            Authorization: `Bearer ${token}`,
           },
         };
       },
@@ -69,7 +73,7 @@ export const dashboardProductApi = createApi({
           method: "POST",
           body: data,
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`,
+            Authorization: `Bearer ${token}`,
           },
         };
       },
@@ -80,7 +84,7 @@ export const dashboardProductApi = createApi({
           url: `/products/${id}`,
           method: "DELETE",
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTdjY2JjMjhkZWM5MTBlOTdhNGI3OSIsImlhdCI6MTcyOTYxMzE4OSwiZXhwIjoxNzM3Mzg5MTg5fQ.uI9YBy8Wv151HBa5yC5_xlcTe2ec281Y1yVGlvCwRr0`,
+            Authorization: `Bearer ${token}`,
           },
         };
       },

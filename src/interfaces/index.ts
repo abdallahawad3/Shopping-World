@@ -75,6 +75,10 @@ export interface IRegister {
   password: string;
   passwordConfirm: string;
 }
+export interface ILogin {
+  email: string;
+  password: string;
+}
 
 export interface CookieOptions {
   maxAge?: number;
