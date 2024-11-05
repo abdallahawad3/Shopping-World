@@ -27,6 +27,7 @@ import AddressPage from "../Pages/User/Address";
 import ProfilePage from "../components/User/ProfilePage";
 import WishlistPage from "../Pages/User/Wishlist";
 import CookieService from "../services/CookieService";
+import NotFoundPage from "../Pages/Error/NotFoundPage";
 
 const user = CookieService.get("user") ? CookieService.get("user") : false;
 const isLogged = user ? user.token : false;
@@ -131,6 +132,7 @@ const router = createBrowserRouter(
       ) : (
         <></>
       )}
+      <Route path="*" element={<NotFoundPage />} />
     </>,
   ),
 );
