@@ -69,6 +69,13 @@ export interface IErrorResponse {
   };
 }
 
+export interface IRegister {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+
 export interface CookieOptions {
   maxAge?: number;
   signed?: boolean;
