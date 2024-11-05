@@ -49,14 +49,12 @@ const NavbarComponent = () => {
           </div>
           <div className="flex items-center lg:space-x-2">
             <button
-              id="myCartDropdownButton1"
-              data-dropdown-toggle="myCartDropdown1"
               type="button"
               className="inline-flex items-center justify-center rounded-lg p-2 text-sm font-medium leading-none text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
             >
               <span className="sr-only">Cart</span>
               <svg
-                className="h-5 w-5 lg:me-1"
+                className="size-5 lg:me-1"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width={24}
@@ -239,7 +237,7 @@ const NavbarComponent = () => {
           id="ecommerce-navbar-menu-1"
           className="mt-4 hidden rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-600 dark:bg-gray-700"
         >
-          <ul className="space-y-3 text-sm font-medium text-gray-900 dark:text-white dark:text-white">
+          <ul className="space-y-3 text-sm font-medium text-gray-900 dark:text-white">
             <li>
               <a
                 href="#"
