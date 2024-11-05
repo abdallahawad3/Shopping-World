@@ -7,8 +7,8 @@ import type { ICategory } from "../../../interfaces";
 import { axiosInstance } from "../../../config/axios.config";
 import toast from "react-hot-toast";
 import CookieService from "../../../services/CookieService";
-const user = CookieService.get("user");
-const token = user.token;
+const user = CookieService.get("user") ?? false;
+const token = user?.token ?? "";
 
 interface CategoryState {
   data: ICategory[];

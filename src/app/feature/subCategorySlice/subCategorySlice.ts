@@ -22,8 +22,8 @@ const initialState: ISubCategoryState = {
   isLoading: false,
 };
 
-const user = CookieService.get("user");
-const token = user.token;
+const user = CookieService.get("user") ?? false;
+const token = user?.token ?? "";
 
 // Post New SubCategory..✅
 export const addSubCategory = createAsyncThunk(
