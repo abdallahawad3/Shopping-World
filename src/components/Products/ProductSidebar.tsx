@@ -1,10 +1,53 @@
 import { useAppDispatch, type RootState } from "../../app/store";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { getAllCategory } from "../../app/feature/CategorySlice/CategorySlice";
 import { getAllBrand } from "../../app/feature/Brands/brandSlice";
+interface IProps {
+  setAllCategories: (values: string[]) => void;
+  setAllBrands: (values: string[]) => void;
+  setLessThanPriceFun: (price: number) => void;
+  setGreeterThanPriceFun: (price: number) => void;
+}
+const ProductSidebar = ({
+  setAllCategories,
+  setAllBrands,
+  setGreeterThanPriceFun,
+  setLessThanPriceFun,
+}: IProps) => {
+  //* States..✔️
+  const [filterCategory, setFilterCategory] = useState<string[]>([]);
+  const [filterBrands, setFilterBrands] = useState<string[]>([]);
+  const [lessThanPrice, setLessThanPrice] = useState(0);
+  const [greeterThanPrice, setGreeterThanPrice] = useState(0);
+  useEffect(() => {
+    setAllCategories(filterCategory);
+    setAllBrands(filterBrands);
+  }, [filterCategory, filterBrands]);
 
-const ProductSidebar = () => {
+  const handleCategoryToggle = (id: string) => {
+    setFilterCategory((prev) =>
+      prev.includes(id)
+        ? prev.filter((prevId) => prevId !== id)
+        : [...prev, id],
+    );
+  };
+  const handleBrandsToggle = (id: string) => {
+    setFilterBrands((prev) =>
+      prev.includes(id)
+        ? prev.filter((prevId) => prevId !== id)
+        : [...prev, id],
+    );
+  };
+
+  const handleLessPrice = (e: ChangeEvent<HTMLInputElement>) => {
+    setLessThanPrice(Number(e.target.value));
+    setLessThanPriceFun(lessThanPrice);
+  };
+  const handleGreeterThanPrice = (e: ChangeEvent<HTMLInputElement>) => {
+    setGreeterThanPrice(Number(e.target.value));
+    setGreeterThanPriceFun(greeterThanPrice);
+  };
   const { data: dataCategory } = useSelector(
     (state: RootState) => state.allCategory,
   );
@@ -40,6 +83,7 @@ const ProductSidebar = () => {
                     <input
                       type="number"
                       id="from"
+                      onChange={handleLessPrice}
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     />
                   </div>
@@ -53,6 +97,7 @@ const ProductSidebar = () => {
                     <input
                       type="number"
                       id="to"
+                      onChange={handleGreeterThanPrice}
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                     />
                   </div>
@@ -67,6 +112,9 @@ const ProductSidebar = () => {
                     <div key={ele._id} className="mb-4 flex items-center">
                       <input
                         id={ele._id}
+                        onChange={() => {
+                          handleCategoryToggle(ele._id);
+                        }}
                         type="checkbox"
                         value=""
                         className="size-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
@@ -89,6 +137,9 @@ const ProductSidebar = () => {
                     <div key={ele._id} className="mb-4 flex items-center">
                       <input
                         id={ele._id}
+                        onChange={() => {
+                          handleBrandsToggle(ele._id);
+                        }}
                         type="checkbox"
                         value=""
                         className="size-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"

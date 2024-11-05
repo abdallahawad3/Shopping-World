@@ -9,6 +9,7 @@ interface IProductState {
   allProduct: IProduct[];
   mostSales: IProduct[];
   recommendForYou: IProduct[];
+  flitteredProducts: IProduct[];
   beauty: IProduct[];
   paginationResult: {
     currentPage: number;
@@ -22,6 +23,7 @@ interface IProductState {
 
 const initialState: IProductState = {
   productsCategory: [],
+  flitteredProducts: [],
   singleProduct: {
     _id: "",
     title: "",
@@ -139,6 +141,23 @@ export const fetchBeauty = createAsyncThunk(
   },
 );
 
+export const filterProducts = createAsyncThunk(
+  "products/filterProducts",
+  async (
+    { filter, page }: { filter: string; page: number },
+    { rejectWithValue },
+  ) => {
+    try {
+      const { data } = await axiosInstance(
+        `/products?page=${page}&limit=${8}&${filter}`,
+      );
+      return data;
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  },
+);
+
 // Slice
 const productSlice = createSlice({
   name: "products",
@@ -222,6 +241,20 @@ const productSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getProductsWithCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = action.payload as string;
+        toast.error(state.isError, { position: "top-right" });
+      })
+      // Filter Products
+      .addCase(filterProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(filterProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.flitteredProducts = action.payload.data;
+        state.paginationResult = action.payload.paginationResult;
+      })
+      .addCase(filterProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload as string;
         toast.error(state.isError, { position: "top-right" });

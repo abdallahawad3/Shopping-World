@@ -1,5 +1,5 @@
 import UserOrdersCard from "../../components/User/UserOrdersCard";
-import Pagination from "../../components/utils/Pagination";
+// import Pagination from "../../components/utils/Pagination";
 
 const UserHomePage = () => {
   return (
@@ -13,9 +13,7 @@ const UserHomePage = () => {
         <UserOrdersCard />
         <UserOrdersCard />
       </div>
-      <div className="mt-5 text-center">
-        <Pagination />
-      </div>
+      <div className="mt-5 text-center">{/* <Pagination /> */}</div>
     </section>
   );
 };
