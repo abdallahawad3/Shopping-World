@@ -1,7 +1,6 @@
 import type { IProduct } from "../../interfaces";
 import ProductCard from "../utils/ProductCard";
 import SubTitle from "../utils/SubTitle";
-
 interface IProps {
   title: string;
   btnTitle?: string;

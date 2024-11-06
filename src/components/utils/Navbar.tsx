@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import CookieService from "../../services/CookieService";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../app/store";
 
 const NavbarComponent = () => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
   const isLogin = user ? user.token : "";
+  const data = useSelector((state: RootState) => state.wishlist.data);
 
   return (
     <nav className="sticky left-0 top-0 z-[100] w-full bg-white antialiased shadow-lg dark:bg-gray-800">
@@ -53,7 +56,7 @@ const NavbarComponent = () => {
           <div className="flex items-center lg:space-x-2">
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-lg p-2 text-sm font-medium leading-none text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              className="relative inline-flex items-center justify-center rounded-lg p-2 text-sm font-medium leading-none text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
             >
               <span className="sr-only">Cart</span>
               <svg
@@ -76,11 +79,15 @@ const NavbarComponent = () => {
               <Link className="hidden sm:flex" to="/user/cart">
                 My Cart
               </Link>
+
+              <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-500 font-bold text-white">
+                {0}
+              </span>
             </button>
 
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-lg p-2 text-sm font-medium leading-none text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+              className="relative inline-flex items-center justify-center rounded-lg p-2 text-sm font-medium leading-none text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
             >
               <Link className="sr-only" to="/user/wishlist">
                 Wishlist
@@ -104,6 +111,9 @@ const NavbarComponent = () => {
               <Link className="hidden sm:flex" to="/user/wishlist">
                 My Wishlist
               </Link>
+              <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-500 font-bold text-white">
+                {data.length}
+              </span>
             </button>
             {/* ACCOUNT */}
             {isLogin.length != 0 ? (
@@ -159,7 +169,7 @@ const NavbarComponent = () => {
                           to="/user"
                           className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
                         >
-                          My Account
+                          {user.data.name}
                         </Link>
                       </li>
                       <li>

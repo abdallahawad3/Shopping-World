@@ -1,15 +1,49 @@
 import toast from "react-hot-toast";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+// import { FaHeart } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import type { IProduct } from "../../interfaces";
 import { textSlice } from "../../utils";
+import CookieService from "../../services/CookieService";
+import {
+  addProductToWishlist,
+  deleteProductFromWishlist,
+  getWishlistData,
+} from "../../app/feature/Wishlist/wishlistSlice";
+import { useSelector } from "react-redux";
+import { useAppDispatch, type RootState } from "../../app/store";
+import { useEffect } from "react";
 
 interface IProps {
   product: IProduct;
 }
 
 const ProductCard = ({ product }: IProps) => {
-  const isLogged = false;
+  const user = CookieService.get("user") ? CookieService.get("user") : false;
+  const isLogged = user ? user.token : false;
+  const data = useSelector((state: RootState) => state.wishlist.data); // Adjust based on your store structure
+  const dispatch = useAppDispatch();
+  const isInWishlist = data.some((item) => item._id === product._id);
+
+  useEffect(() => {
+    dispatch(getWishlistData());
+  }, [dispatch, product._id]);
+
+  const handleToggleWishlist = () => {
+    if (isLogged) {
+      if (isInWishlist) {
+        dispatch(deleteProductFromWishlist(product._id));
+      } else {
+        dispatch(addProductToWishlist(product._id));
+      }
+    } else {
+      toast.error("You should log in first", {
+        position: "top-right",
+      });
+    }
+  };
 
   return (
     <motion.div
@@ -74,42 +108,9 @@ const ProductCard = ({ product }: IProps) => {
               <div className="tooltip-arrow" data-popper-arrow=""></div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                isLogged
-                  ? toast.success("Success")
-                  : toast.error("You Should Login First");
-              }}
-              data-tooltip-target="tooltip-add-to-favorites"
-              className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only"> Add to Favorites </span>
-              <svg
-                className="size-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z"
-                />
-              </svg>
+            <button type="button" onClick={handleToggleWishlist}>
+              {isInWishlist ? <FaHeart fill="red" /> : <FaRegHeart />}
             </button>
-            <div
-              id="tooltip-add-to-favorites"
-              role="tooltip"
-              className="tooltip invisible absolute z-10 inline-block rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-gray-700"
-              data-popper-placement="top"
-            >
-              Add to favorites
-              <div className="tooltip-arrow" data-popper-arrow=""></div>
-            </div>
           </div>
         </div>
 

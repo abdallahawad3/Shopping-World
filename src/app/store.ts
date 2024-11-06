@@ -4,6 +4,7 @@ import categorySlice from "./feature/CategorySlice/CategorySlice";
 import brandSlice from "./feature/Brands/brandSlice";
 import subCategorySlice from "./feature/subCategorySlice/subCategorySlice";
 import productSlice from "./feature/ProductsSlice/productsSlice";
+import wishlistSlice from "./feature/Wishlist/wishlistSlice";
 import { dashboardProductApi } from "./services/dashboardProductApi";
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     allCategory: categorySlice,
     allBrand: brandSlice,
     subCategory: subCategorySlice,
+    wishlist: wishlistSlice,
     [dashboardProductApi.reducerPath]: dashboardProductApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

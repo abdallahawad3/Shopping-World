@@ -10,8 +10,22 @@ import {
   getSingleProduct,
 } from "../../app/feature/ProductsSlice/productsSlice";
 import CardProductsSection from "../../components/Home/CardProductsSection";
+import CookieService from "../../services/CookieService";
+import {
+  addProductToWishlist,
+  deleteProductFromWishlist,
+  getWishlistData,
+} from "../../app/feature/Wishlist/wishlistSlice";
+import toast from "react-hot-toast";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 const ProductPage = () => {
+  const user = CookieService.get("user") ? CookieService.get("user") : false;
+  const isLogged = user ? user.token : false;
   const { id } = useParams();
+  const data = useSelector((state: RootState) => state.wishlist.data);
+  const isInWishlist = data.some((item) => item._id === id);
+  const dispatch = useAppDispatch();
+
   const { singleProduct } = useSelector(
     (state: RootState) => state.allProducts,
   );
@@ -19,7 +33,6 @@ const ProductPage = () => {
   const { productsCategory, isLoading } = useSelector(
     (state: RootState) => state.allProducts,
   );
-  const dispatch = useAppDispatch();
   useEffect(() => {
     if (id) {
       dispatch(getSingleProduct(id));
@@ -29,6 +42,24 @@ const ProductPage = () => {
       dispatch(getProductsWithCategory(categoryId));
     }
   }, [dispatch, id, singleProduct.category, categoryId]);
+
+  useEffect(() => {
+    dispatch(getWishlistData());
+  }, [dispatch, id]);
+
+  const handleToggleWishlist = () => {
+    if (isLogged && id) {
+      if (isInWishlist) {
+        dispatch(deleteProductFromWishlist(id));
+      } else {
+        dispatch(addProductToWishlist(id));
+      }
+    } else {
+      toast.error("You should log in first", {
+        position: "top-right",
+      });
+    }
+  };
 
   return (
     <section className="bg-white py-8 antialiased md:py-16 dark:bg-gray-900">
@@ -74,57 +105,62 @@ const ProductPage = () => {
             </div>
 
             <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
-              <a
-                href="#"
-                title=""
-                className="flex items-center justify-center rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-                role="button"
-              >
-                <svg
-                  className="-ms-2 me-2 h-5 w-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                  />
-                </svg>
-                Add to favorites
-              </a>
-
-              <a
-                href="#"
-                title=""
-                className="mt-4 flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 sm:mt-0 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                role="button"
-              >
-                <svg
-                  className="-ms-2 me-2 size-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
-                  />
-                </svg>
-                Add to cart
-              </a>
+              <button type="button" onClick={handleToggleWishlist}>
+                {isInWishlist ? (
+                  <div className="mt-4 flex  items-center justify-center gap-1 rounded-lg bg-gray-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 sm:mt-0 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                    <FaHeart fill="red" /> <span>Remove From Favorite</span>
+                  </div>
+                ) : (
+                  <div className="mt-4 flex  items-center justify-center gap-1 rounded-lg bg-gray-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 sm:mt-0 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                    <FaRegHeart /> <span>Add To Favorite</span>
+                  </div>
+                )}
+              </button>
+              <button type="button">
+                {isInWishlist ? (
+                  <div className="mt-4 flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 sm:mt-0 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    <svg
+                      className="-ms-2 me-2 size-5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
+                      />
+                    </svg>{" "}
+                    <span>Remove From Cart</span>
+                  </div>
+                ) : (
+                  <div className="mt-4 flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 sm:mt-0 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    <svg
+                      className="-ms-2 me-2 size-5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
+                      />
+                    </svg>
+                    <span>Add To Cart</span>
+                  </div>
+                )}
+              </button>
             </div>
 
             <hr className="my-6 border-gray-200 md:my-8 dark:border-gray-800" />
