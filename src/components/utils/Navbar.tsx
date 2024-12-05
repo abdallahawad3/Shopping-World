@@ -71,7 +71,7 @@ const NavbarComponent = () => {
             <button
               type="button"
               onClick={() => {
-                isLoginReducer
+                isLogin
                   ? dispatch(openDrawerAction())
                   : toast.error("You should login first", {
                       duration: 1000,
@@ -99,7 +99,7 @@ const NavbarComponent = () => {
                 />
               </svg>
               My Cart
-              {isLoginReducer ? (
+              {isLogin ? (
                 <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
                   {cartProducts.length}
                 </span>
@@ -133,7 +133,7 @@ const NavbarComponent = () => {
 
               <Link
                 className="sm:flex"
-                to={isLoginReducer ? "/user/wishlist}" : "/login"}
+                to={isLogin ? "/user/wishlist}" : "/login"}
                 onClick={() => {}}
               >
                 My Wishlist
