@@ -6,6 +6,7 @@ import { openDrawerAction } from "../../app/feature/Global/globalSlice";
 import { useEffect } from "react";
 import { getAllCartProducts } from "../../app/feature/Cart/cartSlice";
 import { logOutAction } from "../../app/feature/Auth/AuthSlice";
+import toast from "react-hot-toast";
 
 const NavbarComponent = () => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
@@ -69,6 +70,14 @@ const NavbarComponent = () => {
           <div className="flex items-center lg:space-x-2">
             <button
               type="button"
+              onClick={() => {
+                isLoginReducer
+                  ? dispatch(openDrawerAction())
+                  : toast.error("You should login first", {
+                      duration: 1000,
+                      position: "top-right",
+                    });
+              }}
               className="relative inline-flex items-center justify-center rounded-lg p-2 text-sm font-medium leading-none text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
             >
               <span className="sr-only">Cart</span>
@@ -89,14 +98,7 @@ const NavbarComponent = () => {
                   d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
                 />
               </svg>
-              <button
-                className="hidden sm:flex"
-                onClick={() => {
-                  dispatch(openDrawerAction());
-                }}
-              >
-                My Cart
-              </button>
+              My Cart
               {isLoginReducer ? (
                 <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
                   {cartProducts.length}
@@ -129,7 +131,11 @@ const NavbarComponent = () => {
                 />
               </svg>
 
-              <Link className="hidden sm:flex" to="/user/wishlist">
+              <Link
+                className="sm:flex"
+                to={isLoginReducer ? "/user/wishlist}" : "/login"}
+                onClick={() => {}}
+              >
                 My Wishlist
               </Link>
               {isLoginReducer ? (
@@ -244,6 +250,7 @@ const NavbarComponent = () => {
                   )}
                   <div className="p-2 text-sm font-medium text-gray-900 dark:text-white">
                     <button
+                      type="button"
                       onClick={() => {
                         CookieService.remove("user");
                         window.location.reload();
@@ -259,7 +266,10 @@ const NavbarComponent = () => {
               </>
             ) : (
               <Link to={"/login"}>
-                <button className="rounded-md bg-blue-600 px-4 py-1 text-white hover:bg-blue-700">
+                <button
+                  type="button"
+                  className="rounded-md bg-blue-600 px-4 py-1 text-white hover:bg-blue-700"
+                >
                   Login
                 </button>
               </Link>
