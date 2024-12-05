@@ -23,7 +23,7 @@ const CartDrawer = () => {
       : document.querySelector("body")?.classList.remove("overflow-hidden");
     dispatch(getAllCartProducts());
   }, [isOpenCartDrawer, dispatch]);
-  console.log(cartProducts);
+
   return (
     <>
       <div>
@@ -37,7 +37,7 @@ const CartDrawer = () => {
           aria-labelledby="drawer-label"
           role={isOpenCartDrawer ? "" : "dialog"}
         >
-          <div className="fixed right-5 top-0 flex w-[32%] items-center justify-between rounded p-2 dark:bg-gray-700 dark:hover:text-white">
+          <div className=" right-5 top-0 flex  items-center justify-between rounded p-2 dark:bg-gray-700 dark:hover:text-white">
             <h5 className="inline-flex items-center gap-1 text-base font-semibold text-gray-500 dark:text-gray-400">
               <svg
                 className="size-5"

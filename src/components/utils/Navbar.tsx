@@ -5,18 +5,22 @@ import { useAppDispatch, type RootState } from "../../app/store";
 import { openDrawerAction } from "../../app/feature/Global/globalSlice";
 import { useEffect } from "react";
 import { getAllCartProducts } from "../../app/feature/Cart/cartSlice";
+import { logOutAction } from "../../app/feature/Auth/AuthSlice";
 
 const NavbarComponent = () => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
   const isLogin = user ? user.token : "";
   const { cartProducts } = useSelector((state: RootState) => state.cart);
+  const { isLogin: isLoginReducer } = useSelector(
+    (state: RootState) => state.auth,
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLoginReducer) {
       dispatch(getAllCartProducts());
     }
-  }, [isLogin, dispatch]);
+  }, [isLoginReducer, dispatch]);
   return (
     <nav className="sticky left-0 top-0 z-[100] w-full bg-white antialiased shadow-lg dark:bg-gray-800">
       <div className="mx-auto max-w-screen-xl p-4 2xl:px-0">
@@ -93,10 +97,13 @@ const NavbarComponent = () => {
               >
                 My Cart
               </button>
-
-              <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
-                {cartProducts.length}
-              </span>
+              {isLoginReducer ? (
+                <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
+                  {cartProducts.length}
+                </span>
+              ) : (
+                ""
+              )}
             </button>
 
             <button
@@ -125,9 +132,13 @@ const NavbarComponent = () => {
               <Link className="hidden sm:flex" to="/user/wishlist">
                 My Wishlist
               </Link>
-              <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
-                {0}
-              </span>
+              {isLoginReducer ? (
+                <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
+                  {0}
+                </span>
+              ) : (
+                ""
+              )}
             </button>
             {/* ACCOUNT */}
             {isLogin.length != 0 ? (
@@ -237,6 +248,7 @@ const NavbarComponent = () => {
                         CookieService.remove("user");
                         window.location.reload();
                         window.localStorage.clear();
+                        dispatch(logOutAction());
                       }}
                       className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
                     >

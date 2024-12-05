@@ -13,6 +13,8 @@ interface IProps {
 
 const CartItem = ({ product }: IProps) => {
   const img = product.imageCover.indexOf("https");
+  console.log(product);
+
   const { existCartProduct } = useSelector((state: RootState) => state.cart);
 
   const dispatch = useAppDispatch();

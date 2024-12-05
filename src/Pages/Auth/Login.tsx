@@ -8,8 +8,11 @@ import toast from "react-hot-toast";
 import type { AxiosError } from "axios";
 import { useState } from "react";
 import CookieService from "../../services/CookieService";
+import { useAppDispatch } from "../../app/store";
+import { loginAction } from "../../app/feature/Auth/AuthSlice";
 
 const LoginPage = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {
@@ -27,6 +30,7 @@ const LoginPage = () => {
         password: loginData.password,
       });
       if (status === 200) {
+        dispatch(loginAction());
         setLoading(true);
         CookieService.set("user", data, {});
         toast.success("Login successful! Welcome back!", {
@@ -36,7 +40,7 @@ const LoginPage = () => {
         setTimeout(() => {
           navigate("/");
           setLoading(false);
-        }, 2000);
+        }, 2500);
       }
     } catch (error) {
       console.log(error);

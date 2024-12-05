@@ -12,13 +12,13 @@ import {
   fetchRecommendForYou,
 } from "../../app/feature/ProductsSlice/productsSlice";
 import { getAllCartProducts } from "../../app/feature/Cart/cartSlice";
-import CookieService from "../../services/CookieService";
 
 const HomePage = () => {
-  const user = CookieService.get("user") ? CookieService.get("user") : false;
-  const isLogin = user ? user.token : "";
   const { beauty, mostSales, recommendForYou, isLoading } = useSelector(
     (state: RootState) => state.allProducts,
+  );
+  const { isLogin: isLoginReducer } = useSelector(
+    (state: RootState) => state.auth,
   );
 
   const dispatch = useAppDispatch();
@@ -26,10 +26,10 @@ const HomePage = () => {
     dispatch(fetchMostSales());
     dispatch(fetchRecommendForYou());
     dispatch(fetchBeauty());
-    if (isLogin) {
+    if (isLoginReducer) {
       dispatch(getAllCartProducts());
     }
-  }, [dispatch]);
+  }, [dispatch, isLoginReducer]);
 
   return (
     <>

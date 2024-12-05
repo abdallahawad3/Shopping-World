@@ -8,6 +8,7 @@ import subCategorySlice from "./feature/subCategorySlice/subCategorySlice";
 import productSlice from "./feature/ProductsSlice/productsSlice";
 import globalSlice from "./feature/Global/globalSlice";
 import cartSlice from "./feature/Cart/cartSlice";
+import authSlice from "./feature/Auth/AuthSlice";
 import { dashboardProductApi } from "./services/dashboardProductApi";
 
 // Configuration For persist
@@ -27,6 +28,7 @@ export const store = configureStore({
     subCategory: subCategorySlice,
     globalSlice: globalSlice,
     cart: persistedCart,
+    auth: authSlice,
     [dashboardProductApi.reducerPath]: dashboardProductApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

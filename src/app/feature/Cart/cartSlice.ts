@@ -121,7 +121,10 @@ const cartSlice = createSlice({
       builder.addCase(getAllCartProducts.fulfilled, (state, action) => {
         if (action.payload) {
           const products = action.payload.data.products.map(
-            (ele: { product: IProduct }) => ele.product,
+            (ele: { product: IProduct; price: number }) => ({
+              ...ele.product,
+              price: ele.price,
+            }),
           );
           state.cartProducts = [...products];
         }
