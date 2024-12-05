@@ -1,3 +1,9 @@
+import { useSelector } from "react-redux";
+import {
+  deleteProductFromCart,
+  removeFromCartAction,
+} from "../../app/feature/Cart/cartSlice";
+import { useAppDispatch, type RootState } from "../../app/store";
 import type { IProduct } from "../../interfaces";
 import { textSlice } from "../../utils";
 
@@ -7,7 +13,9 @@ interface IProps {
 
 const CartItem = ({ product }: IProps) => {
   const img = product.imageCover.indexOf("https");
+  const { existCartProduct } = useSelector((state: RootState) => state.cart);
 
+  const dispatch = useAppDispatch();
   return (
     <div className="mb-2 space-y-2 rounded-lg  border  border-gray-200 bg-white shadow-sm md:p-6 dark:border-gray-700 dark:bg-gray-800">
       <div className="flex items-center justify-between">
@@ -52,6 +60,13 @@ const CartItem = ({ product }: IProps) => {
         <button
           type="button"
           className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
+          onClick={() => {
+            const productToRemoveFromCart = existCartProduct.find((ele) =>
+              ele.product === product._id ? ele._id : "",
+            );
+            dispatch(removeFromCartAction(product));
+            dispatch(deleteProductFromCart(productToRemoveFromCart!._id));
+          }}
         >
           <svg
             className="me-1.5 size-5"

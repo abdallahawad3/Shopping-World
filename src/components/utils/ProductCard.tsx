@@ -6,7 +6,8 @@ import type { IProduct } from "../../interfaces";
 import { textSlice } from "../../utils";
 import CookieService from "../../services/CookieService";
 import { useAppDispatch } from "../../app/store";
-import { addToCart } from "../../app/feature/Cart/cartSlice";
+import { addToCart, addToCartAction } from "../../app/feature/Cart/cartSlice";
+import toast from "react-hot-toast";
 
 interface IProps {
   product: IProduct;
@@ -16,7 +17,6 @@ const ProductCard = ({ product }: IProps) => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
   const isLogged = user ? user.token : false;
   const dispatch = useAppDispatch();
-  console.log(isLogged);
 
   return (
     <motion.div
@@ -201,12 +201,14 @@ const ProductCard = ({ product }: IProps) => {
 
           <button
             onClick={() => {
-              dispatch(addToCart(product));
-              // isLogged
-              //   ? toast.success("Success")
-              //   : toast.error("You Should Login First", {
-              //       position: "top-right",
-              //     });
+              if (isLogged) {
+                dispatch(addToCartAction(product));
+                dispatch(addToCart(product._id));
+              } else {
+                toast.error("You Should Login First", {
+                  position: "top-right",
+                });
+              }
             }}
             type="button"
             className="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

@@ -3,6 +3,11 @@ import { useAppDispatch, type RootState } from "../../app/store";
 import { closeDrawerAction } from "../../app/feature/Global/globalSlice";
 import { useEffect } from "react";
 import CartItem from "../Cart/CartItem";
+import {
+  clearAllCartProductAction,
+  getAllCartProducts,
+  removeAllProductsCart,
+} from "../../app/feature/Cart/cartSlice";
 
 const CartDrawer = () => {
   const { isOpenCartDrawer } = useSelector(
@@ -16,7 +21,9 @@ const CartDrawer = () => {
     isOpenCartDrawer
       ? document.querySelector("body")?.classList.add("overflow-hidden")
       : document.querySelector("body")?.classList.remove("overflow-hidden");
-  }, [isOpenCartDrawer]);
+    dispatch(getAllCartProducts());
+  }, [isOpenCartDrawer, dispatch]);
+  console.log(cartProducts);
   return (
     <>
       <div>
@@ -78,9 +85,10 @@ const CartDrawer = () => {
           </div>
           {/* Body */}
           <div className="mt-[36px] p-4">
-            {cartProducts.map((ele) => (
-              <CartItem product={ele} key={ele._id} />
-            ))}
+            {cartProducts &&
+              cartProducts.map((ele) => (
+                <CartItem product={ele} key={ele._id} />
+              ))}
           </div>
           {/* Footer */}
           <div className="relative bottom-0 mb-4 grid  grid-cols-2 gap-4 px-4">
@@ -92,7 +100,13 @@ const CartDrawer = () => {
             >
               Close
             </button>
-            <button className="rounded-lg bg-red-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+            <button
+              onClick={() => {
+                dispatch(clearAllCartProductAction());
+                dispatch(removeAllProductsCart());
+              }}
+              className="rounded-lg bg-red-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            >
               Clear All
             </button>
           </div>
