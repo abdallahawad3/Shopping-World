@@ -34,9 +34,9 @@ const UserSidebar = () => {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
                     ></path>
                   </svg>
@@ -47,8 +47,6 @@ const UserSidebar = () => {
                 <Link
                   to={"/user/wishlist"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="dropdown-pages"
-                  data-collapse-toggle="dropdown-pages"
                 >
                   <IoMdHeartEmpty />
                   <span className="ml-3 flex-1 whitespace-nowrap text-left">
@@ -60,8 +58,6 @@ const UserSidebar = () => {
                 <Link
                   to={"/user/address"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="dropdown-sales"
-                  data-collapse-toggle="dropdown-sales"
                 >
                   <MdLocationOn />
                   <span className="ml-3 flex-1 whitespace-nowrap text-left">
@@ -74,8 +70,6 @@ const UserSidebar = () => {
                 <Link
                   to={"/user/profile"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="dropdown-authentication"
-                  data-collapse-toggle="dropdown-authentication"
                 >
                   <CgProfile />
                   <span className="ml-3 flex-1 whitespace-nowrap text-left">

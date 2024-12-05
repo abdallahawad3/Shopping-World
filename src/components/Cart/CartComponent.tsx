@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
 import type { IProduct } from "../../interfaces";
 import {
-  addToCart,
-  addToCartAction,
   deleteProductFromCart,
   getAllCartProducts,
   removeFromCartAction,
+  updateCartQuantity,
 } from "../../app/feature/Cart/cartSlice";
 import { useAppDispatch } from "../../app/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface IProps {
   product: IProduct;
 }
 
 const CartComponent = ({ product }: IProps) => {
+  const [count, setCount] = useState(product.count);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getAllCartProducts());
@@ -38,34 +38,24 @@ const CartComponent = ({ product }: IProps) => {
           </a>
           <div className="flex items-center justify-between md:order-3 md:justify-end">
             <div className="flex items-center">
-              <span className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white">
-                {product.count}
-              </span>
+              <input
+                className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
+                value={count}
+                onChange={(e) => {
+                  setCount(+e.target.value);
+                }}
+              />
+
               <button
                 onClick={() => {
-                  dispatch(addToCartAction(product));
-                  dispatch(addToCart(product._id));
+                  dispatch(
+                    updateCartQuantity({ id: product._id, quantity: count }),
+                  );
                 }}
                 type="button"
-                id="increment-button"
-                data-input-counter-increment="counter-input"
-                className="inline-flex size-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
+                className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-gray-100 px-2 py-1 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
               >
-                <svg
-                  className="size-2.5 text-gray-900 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 18 18"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 1v16M1 9h16"
-                  />
-                </svg>
+                Done
               </button>
             </div>
             <div className="text-end md:order-4 md:w-32">

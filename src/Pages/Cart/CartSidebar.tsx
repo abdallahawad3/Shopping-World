@@ -1,4 +1,19 @@
+import { useSelector } from "react-redux";
+import { useAppDispatch, type RootState } from "../../app/store";
+import { useEffect } from "react";
+import { getAllCartProducts } from "../../app/feature/Cart/cartSlice";
+import { Link } from "react-router-dom";
+
 const CartSidebar = () => {
+  const { totalCartPrice, discount } = useSelector(
+    (state: RootState) => state.cart,
+  );
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAllCartProducts());
+  }, [dispatch]);
   return (
     <div>
       <div className="m-[30px] mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
@@ -14,35 +29,22 @@ const CartSidebar = () => {
                   Original price
                 </dt>
                 <dd className="text-base font-medium text-gray-900 dark:text-white">
-                  $7,592.00
+                  ${totalCartPrice}
                 </dd>
               </dl>
-
+              <dl className="flex items-center justify-between gap-4">
+                <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+                  Discount
+                </dt>
+                <dd className="text-base font-medium text-gray-900 dark:text-white">
+                  {discount}%
+                </dd>
+              </dl>
               <dl className="flex items-center justify-between gap-4">
                 <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
                   Savings
                 </dt>
-                <dd className="text-base font-medium text-green-600">
-                  -$299.00
-                </dd>
-              </dl>
-
-              <dl className="flex items-center justify-between gap-4">
-                <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                  Store Pickup
-                </dt>
-                <dd className="text-base font-medium text-gray-900 dark:text-white">
-                  $99
-                </dd>
-              </dl>
-
-              <dl className="flex items-center justify-between gap-4">
-                <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                  Tax
-                </dt>
-                <dd className="text-base font-medium text-gray-900 dark:text-white">
-                  $799
-                </dd>
+                <dd className="text-base font-medium text-green-600">-${0}</dd>
               </dl>
             </div>
             <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
@@ -50,7 +52,7 @@ const CartSidebar = () => {
                 Total
               </dt>
               <dd className="text-base font-bold text-gray-900 dark:text-white">
-                $8,191.00
+                ${totalCartPrice}
               </dd>
             </dl>
           </div>
@@ -67,8 +69,8 @@ const CartSidebar = () => {
               {" "}
               or{" "}
             </span>
-            <a
-              href="#"
+            <Link
+              to="/products"
               title=""
               className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
             >
@@ -88,7 +90,7 @@ const CartSidebar = () => {
                   d="M19 12H5m14 0-4 4m4-4-4-4"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
 

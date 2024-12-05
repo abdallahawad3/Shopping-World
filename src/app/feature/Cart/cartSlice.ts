@@ -8,11 +8,17 @@ interface cartSliceState {
   cartProducts: IProduct[];
   existCartProduct: { product: string; _id: string }[];
   isLoading: boolean;
+  discount: number;
+  priceAfterDiscount: number;
+  totalCartPrice: number;
 }
 
 const initialState: cartSliceState = {
   cartProducts: [],
   existCartProduct: [],
+  totalCartPrice: 0,
+  discount: 0,
+  priceAfterDiscount: 0,
   isLoading: false,
 };
 
@@ -44,12 +50,12 @@ export const deleteProductFromCart = createAsyncThunk(
   "cartSlice/deleteProductFromCart",
   async (id: string, { rejectWithValue }) => {
     try {
-      const { status } = await axiosInstance.delete(`cart/${id}`, {
+      const { data } = await axiosInstance.delete(`cart/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(status);
+      return data;
     } catch (error) {
       rejectWithValue(error);
     }
@@ -88,6 +94,31 @@ export const removeAllProductsCart = createAsyncThunk(
   },
 );
 
+export const updateCartQuantity = createAsyncThunk(
+  "cartSlice/updateCartQuantity",
+  async (
+    { id, quantity }: { id: string; quantity: number },
+    { rejectWithValue },
+  ) => {
+    try {
+      const { data } = await axiosInstance.put(
+        `cart/${id}`,
+        {
+          count: quantity,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      return data;
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  },
+);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -105,6 +136,7 @@ const cartSlice = createSlice({
     },
     clearAllCartProductAction: (state) => {
       state.cartProducts = [];
+      state.totalCartPrice = 0;
     },
   },
   extraReducers(builder) {
@@ -112,22 +144,50 @@ const cartSlice = createSlice({
       state.isLoading = false;
       state.existCartProduct = [...action.payload.data.products];
     }),
-      builder.addCase(deleteProductFromCart.fulfilled, (state) => {
+      builder.addCase(deleteProductFromCart.fulfilled, (state, action) => {
+        state.totalCartPrice = action.payload.data.totalCartPrice;
         state.isLoading = false;
       }),
       builder.addCase(removeAllProductsCart.fulfilled, (state) => {
         state.cartProducts = [];
       }),
-      builder.addCase(getAllCartProducts.fulfilled, (state, action) => {
+      builder.addCase(updateCartQuantity.fulfilled, (state, action) => {
+        state.totalCartPrice = action.payload.data.totalCartPrice;
         if (action.payload) {
           const products = action.payload.data.products.map(
-            (ele: { product: IProduct; price: number; count: number }) => ({
+            (ele: {
+              product: IProduct;
+              price: number;
+              count: number;
+              _id: string;
+            }) => ({
               ...ele.product,
               price: ele.price,
               count: ele.count,
+              _id: ele._id,
             }),
           );
           state.cartProducts = [...products];
+          state.totalCartPrice = action.payload.data.totalCartPrice;
+        }
+      }),
+      builder.addCase(getAllCartProducts.fulfilled, (state, action) => {
+        if (action.payload) {
+          const products = action.payload.data.products.map(
+            (ele: {
+              product: IProduct;
+              price: number;
+              count: number;
+              _id: string;
+            }) => ({
+              ...ele.product,
+              price: ele.price,
+              count: ele.count,
+              _id: ele._id,
+            }),
+          );
+          state.cartProducts = [...products];
+          state.totalCartPrice = action.payload.data.totalCartPrice;
         }
       });
   },

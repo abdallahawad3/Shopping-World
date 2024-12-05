@@ -97,8 +97,6 @@ const AdminSidebar = () => {
                 <Link
                   to={"/admin/orders"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="dropdown-pages"
-                  data-collapse-toggle="dropdown-pages"
                 >
                   <svg
                     aria-hidden="true"
@@ -122,8 +120,6 @@ const AdminSidebar = () => {
                 <Link
                   to={"/admin/addBrand"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="dropdown-sales"
-                  data-collapse-toggle="dropdown-sales"
                 >
                   <svg
                     aria-hidden="true"
@@ -148,8 +144,6 @@ const AdminSidebar = () => {
                 <Link
                   to={"/admin/addCategory"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  aria-controls="dropdown-authentication"
-                  data-collapse-toggle="dropdown-authentication"
                 >
                   <svg
                     aria-hidden="true"
