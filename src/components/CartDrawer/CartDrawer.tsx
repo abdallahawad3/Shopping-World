@@ -95,10 +95,11 @@ const CartDrawer = () => {
             <button
               onClick={() => {
                 dispatch(closeDrawerAction());
+                window.location.assign("/user/cart");
               }}
               className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
             >
-              Close
+              All Product Cart
             </button>
             <button
               onClick={() => {
@@ -118,7 +119,7 @@ const CartDrawer = () => {
             dispatch(closeDrawerAction());
           }}
           drawer-backdrop=""
-          className="fixed top-0 z-30 h-screen w-screen bg-gray-900/50 dark:bg-gray-900/80"
+          className="fixed top-0 z-[100] h-screen w-screen bg-gray-900/50 dark:bg-gray-900/80"
         ></div>
       ) : (
         ""
