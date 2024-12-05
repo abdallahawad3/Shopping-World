@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <footer className="bg-white antialiased dark:bg-gray-800">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-        <div className="border-b border-gray-100 py-6 dark:border-gray-700 md:py-8 lg:py-16">
+        <div className="border-b border-gray-100 py-6 md:py-8 lg:py-16 dark:border-gray-700">
           <div className="items-start gap-6 md:gap-8 lg:flex 2xl:gap-24">
             <div className="grid min-w-0 flex-1 grid-cols-2 gap-6 md:gap-8 xl:grid-cols-3">
               <div>
@@ -354,7 +354,7 @@ const Footer = () => {
                         Get the latest deals and more.{" "}
                       </label>
                       <input
-                        className="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500 sm:w-96 lg:w-full"
+                        className="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 sm:w-96 lg:w-full dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
                         placeholder="Enter your email address"
                         type="email"
                         id="email"
@@ -388,7 +388,7 @@ const Footer = () => {
                   <div className="gap-4 space-y-4 sm:flex sm:space-y-0">
                     <a
                       href="#"
-                      className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800 sm:w-auto"
+                      className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 sm:w-auto dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800"
                     >
                       <svg
                         className="mr-3 h-7 w-7"
@@ -415,7 +415,7 @@ const Footer = () => {
 
                     <a
                       href="#"
-                      className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800 sm:w-auto"
+                      className="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 sm:w-auto dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800"
                     >
                       <svg
                         className="mr-3 h-7 w-7"
@@ -540,18 +540,13 @@ const Footer = () => {
           <div className="gap-4 space-y-5 xl:flex xl:items-center xl:justify-between xl:space-y-0">
             <a href="#" title="" className="block">
               <img
-                className="block h-8 w-auto dark:hidden"
-                src="./ecommerce.svg"
-                alt=""
-              />
-              <img
-                className="hidden h-8 w-auto dark:block"
-                src="./ecommerce.svg"
+                className="hidden h-8 w-auto "
+                src="public/ecommerce.svg"
                 alt=""
               />
             </a>
 
-            <ul className="flex flex-wrap items-center gap-4 text-sm text-gray-900 dark:text-white xl:justify-center">
+            <ul className="flex flex-wrap items-center gap-4 text-sm text-gray-900 xl:justify-center dark:text-white">
               <li>
                 <a href="#" title="" className="font-medium hover:underline">
                   {" "}

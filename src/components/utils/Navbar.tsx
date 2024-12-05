@@ -29,7 +29,7 @@ const NavbarComponent = () => {
           <div className="flex items-center space-x-8">
             <div className="shrink-0">
               <Link to="/">
-                <img className="block h-8 w-auto " src="./ecommerce.svg" />
+                <img className="block h-8 w-auto " src="public/ecommerce.svg" />
               </Link>
             </div>
             <ul className="hidden items-center justify-start gap-6 py-3 sm:justify-center md:gap-8 lg:flex">
@@ -213,7 +213,7 @@ const NavbarComponent = () => {
                       </li>
                       <li>
                         <Link
-                          to="/user"
+                          to="/user/wishlist"
                           className="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
                         >
                           Favorites

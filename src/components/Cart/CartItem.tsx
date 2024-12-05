@@ -12,9 +12,6 @@ interface IProps {
 }
 
 const CartItem = ({ product }: IProps) => {
-  const img = product.imageCover.indexOf("https");
-  console.log(product);
-
   const { existCartProduct } = useSelector((state: RootState) => state.cart);
 
   const dispatch = useAppDispatch();
@@ -25,7 +22,9 @@ const CartItem = ({ product }: IProps) => {
           <img
             className="size-12 rounded-full"
             src={
-              img !== -1 ? product.imageCover.slice(img) : product.imageCover
+              product.imageCover.search("https:") != -1
+                ? product.imageCover.slice(product.imageCover.search("https:"))
+                : product.imageCover
             }
             alt={product.title}
           />
@@ -33,7 +32,7 @@ const CartItem = ({ product }: IProps) => {
         </div>
         <p className="font-bold">{product.price}$</p>
       </div>
-      <p>Quantity: {product.qu}</p>
+      <p>Quantity: {product.qu ? product.qu : product.count}</p>
       <div className="flex items-center gap-4">
         <button
           type="button"

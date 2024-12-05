@@ -14,6 +14,7 @@ export interface IProduct {
   subcategory: string[];
   ratingsQuantity: number;
   qu: number;
+  count: number;
 }
 
 export interface IDataResponse {
