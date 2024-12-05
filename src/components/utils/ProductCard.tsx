@@ -1,20 +1,12 @@
-import toast from "react-hot-toast";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-// import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import type { IProduct } from "../../interfaces";
 import { textSlice } from "../../utils";
 import CookieService from "../../services/CookieService";
-import {
-  addProductToWishlist,
-  deleteProductFromWishlist,
-  getWishlistData,
-} from "../../app/feature/Wishlist/wishlistSlice";
-import { useSelector } from "react-redux";
-import { useAppDispatch, type RootState } from "../../app/store";
-import { useEffect } from "react";
+import { useAppDispatch } from "../../app/store";
+import { addToCart } from "../../app/feature/Cart/cartSlice";
 
 interface IProps {
   product: IProduct;
@@ -23,27 +15,8 @@ interface IProps {
 const ProductCard = ({ product }: IProps) => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
   const isLogged = user ? user.token : false;
-  const data = useSelector((state: RootState) => state.wishlist.data); // Adjust based on your store structure
   const dispatch = useAppDispatch();
-  const isInWishlist = data.some((item) => item._id === product._id);
-
-  useEffect(() => {
-    dispatch(getWishlistData());
-  }, [dispatch, product._id]);
-
-  const handleToggleWishlist = () => {
-    if (isLogged) {
-      if (isInWishlist) {
-        dispatch(deleteProductFromWishlist(product._id));
-      } else {
-        dispatch(addProductToWishlist(product._id));
-      }
-    } else {
-      toast.error("You should log in first", {
-        position: "top-right",
-      });
-    }
-  };
+  console.log(isLogged);
 
   return (
     <motion.div
@@ -108,8 +81,8 @@ const ProductCard = ({ product }: IProps) => {
               <div className="tooltip-arrow" data-popper-arrow=""></div>
             </div>
 
-            <button type="button" onClick={handleToggleWishlist}>
-              {isInWishlist ? <FaHeart fill="red" /> : <FaRegHeart />}
+            <button type="button">
+              <FaRegHeart />
             </button>
           </div>
         </div>
@@ -228,11 +201,12 @@ const ProductCard = ({ product }: IProps) => {
 
           <button
             onClick={() => {
-              isLogged
-                ? toast.success("Success")
-                : toast.error("You Should Login First", {
-                    position: "top-right",
-                  });
+              dispatch(addToCart(product));
+              // isLogged
+              //   ? toast.success("Success")
+              //   : toast.error("You Should Login First", {
+              //       position: "top-right",
+              //     });
             }}
             type="button"
             className="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

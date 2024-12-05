@@ -13,6 +13,7 @@ export interface IProduct {
   category: string;
   subcategory: string[];
   ratingsQuantity: number;
+  qu: number;
 }
 
 export interface IDataResponse {

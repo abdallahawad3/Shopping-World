@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import CookieService from "../../services/CookieService";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../app/store";
+import { useAppDispatch, type RootState } from "../../app/store";
+import { openDrawerAction } from "../../app/feature/Global/globalSlice";
 
 const NavbarComponent = () => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
   const isLogin = user ? user.token : "";
-  const data = useSelector((state: RootState) => state.wishlist.data);
-
+  const { cartProducts } = useSelector((state: RootState) => state.cart);
+  const dispatch = useAppDispatch();
   return (
     <nav className="sticky left-0 top-0 z-[100] w-full bg-white antialiased shadow-lg dark:bg-gray-800">
       <div className="mx-auto max-w-screen-xl p-4 2xl:px-0">
@@ -76,12 +77,17 @@ const NavbarComponent = () => {
                   d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
                 />
               </svg>
-              <Link className="hidden sm:flex" to="/user/cart">
+              <button
+                className="hidden sm:flex"
+                onClick={() => {
+                  dispatch(openDrawerAction());
+                }}
+              >
                 My Cart
-              </Link>
+              </button>
 
-              <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-500 font-bold text-white">
-                {0}
+              <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
+                {cartProducts.length}
               </span>
             </button>
 
@@ -111,8 +117,8 @@ const NavbarComponent = () => {
               <Link className="hidden sm:flex" to="/user/wishlist">
                 My Wishlist
               </Link>
-              <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-500 font-bold text-white">
-                {data.length}
+              <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
+                {0}
               </span>
             </button>
             {/* ACCOUNT */}
