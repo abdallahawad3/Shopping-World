@@ -1,6 +1,4 @@
-// import CardProductsSection from "../../components/Home/CardProductsSection";
 import { useParams } from "react-router-dom";
-import ProductReview from "../../components/Products/ProductReview";
 import ProductSlider from "../../components/Products/ProductSlider";
 import { useSelector } from "react-redux";
 import { useAppDispatch, type RootState } from "../../app/store";
@@ -12,11 +10,17 @@ import {
 import CardProductsSection from "../../components/Home/CardProductsSection";
 import CookieService from "../../services/CookieService";
 
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import {
+  addToWishList,
+  getAllWishlistProducts,
+  removeFromWishList,
+} from "../../app/feature/Wishlist/wishlistSlice";
+import toast from "react-hot-toast";
+import { addToCart, addToCartAction } from "../../app/feature/Cart/cartSlice";
 const ProductPage = () => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
   const isLogged = user ? user.token : false;
-  console.log(isLogged);
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -37,6 +41,18 @@ const ProductPage = () => {
       dispatch(getProductsWithCategory(categoryId));
     }
   }, [dispatch, id, singleProduct.category, categoryId]);
+
+  const { wishlistProducts } = useSelector(
+    (state: RootState) => state.wishlist,
+  );
+
+  const productExist = wishlistProducts.find(
+    (ele) => ele._id == singleProduct._id,
+  );
+
+  useEffect(() => {
+    dispatch(getAllWishlistProducts());
+  }, [dispatch]);
 
   return (
     <section className="bg-white py-8 antialiased md:py-16 dark:bg-gray-900">
@@ -82,12 +98,49 @@ const ProductPage = () => {
             </div>
 
             <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
-              <button type="button">
+              <button
+                onClick={() => {
+                  if (isLogged) {
+                    if (productExist) {
+                      dispatch(removeFromWishList(singleProduct._id));
+                    } else {
+                      dispatch(addToWishList(singleProduct._id));
+                    }
+                  } else {
+                    toast.error("You Should Login First", {
+                      position: "top-right",
+                    });
+                  }
+                }}
+                type="button"
+              >
                 <div className="mt-4 flex  items-center justify-center gap-1 rounded-lg bg-gray-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 sm:mt-0 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                  <FaRegHeart /> <span>Add To Favorite</span>
+                  {productExist ? (
+                    <span className="flex items-center gap-1">
+                      <FaHeart fill="red" /> Remove From Favorites
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1">
+                      <FaRegHeart /> Add to Favorites
+                    </span>
+                  )}
                 </div>
               </button>
-              <button type="button">
+              <button
+                type="button"
+                onClick={() => {
+                  if (isLogged) {
+                    if (id) {
+                      dispatch(addToCartAction(singleProduct));
+                      dispatch(addToCart(id));
+                    }
+                  } else {
+                    toast.error("You Should Login First", {
+                      position: "top-right",
+                    });
+                  }
+                }}
+              >
                 <div className="mt-4 flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 sm:mt-0 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                   <svg
                     className="-ms-2 me-2 size-5"
@@ -125,9 +178,7 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
-      <div>
-        <ProductReview />
-      </div>
+
       <div className="container mt-5">
         {productsCategory && (
           <CardProductsSection
