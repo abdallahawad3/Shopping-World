@@ -6,8 +6,16 @@ import {
   removeFromCartAction,
   updateCartQuantity,
 } from "../../app/feature/Cart/cartSlice";
-import { useAppDispatch } from "../../app/store";
+import { useAppDispatch, type RootState } from "../../app/store";
 import { useEffect, useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import {
+  addToWishList,
+  getAllWishlistProducts,
+  removeFromWishList,
+} from "../../app/feature/Wishlist/wishlistSlice";
+import { useSelector } from "react-redux";
+import CookieService from "../../services/CookieService";
 
 interface IProps {
   product: IProduct;
@@ -15,10 +23,22 @@ interface IProps {
 
 const CartComponent = ({ product }: IProps) => {
   const [count, setCount] = useState(product.count);
+  const user = CookieService.get("user") ? CookieService.get("user") : false;
+
+  const isLogged = user ? user.token : false;
   const dispatch = useAppDispatch();
+
+  const { wishlistProducts } = useSelector(
+    (state: RootState) => state.wishlist,
+  );
+
+  const productExist = wishlistProducts.find((ele) => ele._id == product.id);
+
   useEffect(() => {
+    dispatch(getAllWishlistProducts());
     dispatch(getAllCartProducts());
   }, [dispatch]);
+
   return (
     <>
       <div className="m-[30px] rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:m-0 md:p-6 dark:border-gray-700 dark:bg-gray-800">
@@ -67,7 +87,7 @@ const CartComponent = ({ product }: IProps) => {
 
           <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
             <Link
-              to={`/product/${product._id}`}
+              to={`/product/${product.id}`}
               className="text-base font-medium text-gray-900 hover:underline dark:text-white"
             >
               {product.title}
@@ -76,26 +96,25 @@ const CartComponent = ({ product }: IProps) => {
             <div className="flex items-center gap-4">
               <button
                 type="button"
-                className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-white"
+                onClick={() => {
+                  if (isLogged) {
+                    if (productExist) {
+                      dispatch(removeFromWishList(product.id));
+                    } else {
+                      dispatch(addToWishList(product.id));
+                    }
+                  }
+                }}
               >
-                <svg
-                  className="me-1.5 size-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                  />
-                </svg>
-                Add to Favorites
+                {productExist ? (
+                  <span className="flex items-center gap-1">
+                    <FaHeart fill="red" /> Remove From Favorites
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1">
+                    <FaRegHeart /> Add to Favorites
+                  </span>
+                )}
               </button>
 
               <button
