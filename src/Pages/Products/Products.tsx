@@ -11,8 +11,6 @@ const ProductsPage = () => {
   const [allBrands, setAllBrands] = useState("");
   const [lessThanPrice, setLessThanPrice] = useState<number>(0);
   const [greeterThanPrice, setGreeterThanPrice] = useState<number>(0);
-  console.log("lessThanPrice", lessThanPrice);
-  console.log("greeterThanPrice", greeterThanPrice);
   const { flitteredProducts, paginationResult } = useSelector(
     (state: RootState) => state.allProducts,
   );
