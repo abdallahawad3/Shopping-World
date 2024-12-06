@@ -9,16 +9,21 @@ import productSlice from "./feature/ProductsSlice/productsSlice";
 import globalSlice from "./feature/Global/globalSlice";
 import cartSlice from "./feature/Cart/cartSlice";
 import authSlice from "./feature/Auth/AuthSlice";
+import wishlistSlice from "./feature/Wishlist/wishlistSlice";
 import { dashboardProductApi } from "./services/dashboardProductApi";
 
 // Configuration For persist
-
 const persistConfiguration = {
   key: "cart",
   storage,
 };
-
 const persistedCart = persistReducer(persistConfiguration, cartSlice);
+// Configuration For persist
+const wishlistConfiguration = {
+  key: "wishlist",
+  storage,
+};
+const persistedWishlist = persistReducer(wishlistConfiguration, wishlistSlice);
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +32,7 @@ export const store = configureStore({
     allBrand: brandSlice,
     subCategory: subCategorySlice,
     globalSlice: globalSlice,
+    wishlist: persistedWishlist,
     cart: persistedCart,
     auth: authSlice,
     [dashboardProductApi.reducerPath]: dashboardProductApi.reducer,
