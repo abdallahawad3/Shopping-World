@@ -6,6 +6,13 @@ import {
 import { useAppDispatch, type RootState } from "../../app/store";
 import type { IProduct } from "../../interfaces";
 import { textSlice } from "../../utils";
+import {
+  addToWishList,
+  getAllWishlistProducts,
+  removeFromWishList,
+} from "../../app/feature/Wishlist/wishlistSlice";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useEffect } from "react";
 
 interface IProps {
   product: IProduct;
@@ -13,10 +20,19 @@ interface IProps {
 
 const CartItem = ({ product }: IProps) => {
   const { existCartProduct } = useSelector((state: RootState) => state.cart);
-
   const dispatch = useAppDispatch();
+  const { wishlistProducts } = useSelector(
+    (state: RootState) => state.wishlist,
+  );
+
+  const productExist = wishlistProducts.find((ele) => ele._id == product.id);
+
+  useEffect(() => {
+    dispatch(getAllWishlistProducts());
+  }, [dispatch]);
+
   return (
-    <div className="mb-2 space-y-2 rounded-lg  border  border-gray-200 bg-white shadow-sm md:p-6 dark:border-gray-700 dark:bg-gray-800">
+    <div className="mb-2 space-y-2 rounded-lg border  border-gray-200  bg-white p-2 shadow-sm md:p-6 dark:border-gray-700 dark:bg-gray-800">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img
@@ -36,26 +52,24 @@ const CartItem = ({ product }: IProps) => {
       <div className="flex items-center gap-4">
         <button
           type="button"
-          className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-white"
+          onClick={() => {
+            if (productExist) {
+              dispatch(removeFromWishList(product.id));
+            } else {
+              dispatch(addToWishList(product.id));
+            }
+          }}
         >
-          <svg
-            className="me-1 size-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-            ></path>
-          </svg>
-          Add to Favorites
+          {productExist ? (
+            <span className="flex items-center">
+              <FaHeart fill="red" />{" "}
+              <span className="text-sm">Remove From wishlist</span>
+            </span>
+          ) : (
+            <span className="flex items-center">
+              <FaRegHeart /> Add to wishlist
+            </span>
+          )}
         </button>
 
         <button
