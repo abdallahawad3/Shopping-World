@@ -12,7 +12,7 @@ const BrandsSection = ({ btnTitle, title }: IProps) => {
   const { data } = useSelector((state: RootState) => state.allBrand);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getAllBrand());
+    dispatch(getAllBrand(5));
   }, [dispatch]);
 
   return (
