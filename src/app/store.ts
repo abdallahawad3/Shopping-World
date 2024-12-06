@@ -9,6 +9,7 @@ import productSlice from "./feature/ProductsSlice/productsSlice";
 import globalSlice from "./feature/Global/globalSlice";
 import cartSlice from "./feature/Cart/cartSlice";
 import authSlice from "./feature/Auth/AuthSlice";
+import couponSlice from "./feature/Coupon/CouponSlice";
 import wishlistSlice from "./feature/Wishlist/wishlistSlice";
 import { dashboardProductApi } from "./services/dashboardProductApi";
 
@@ -34,6 +35,7 @@ export const store = configureStore({
     globalSlice: globalSlice,
     wishlist: persistedWishlist,
     cart: persistedCart,
+    coupon: couponSlice,
     auth: authSlice,
     [dashboardProductApi.reducerPath]: dashboardProductApi.reducer,
   },

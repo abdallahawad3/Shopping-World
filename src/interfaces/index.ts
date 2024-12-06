@@ -93,3 +93,10 @@ export interface CookieOptions {
   secure?: boolean;
   sameSite?: boolean | "lax" | "strict" | "none";
 }
+
+export interface ICoupon {
+  _id: string;
+  name: string;
+  expire: string;
+  discount: number;
+}

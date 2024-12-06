@@ -28,6 +28,7 @@ import ProfilePage from "../components/User/ProfilePage";
 import WishlistPage from "../Pages/User/Wishlist";
 import CookieService from "../services/CookieService";
 import NotFoundPage from "../Pages/Error/NotFoundPage";
+import DiscountCoupon from "../Pages/Admin/Coupon";
 
 const user = CookieService.get("user") ? CookieService.get("user") : false;
 const isLogged = user ? user.token : false;
@@ -127,6 +128,7 @@ const router = createBrowserRouter(
             <Route path="addCategory" element={<AddCategoryPage />} />
             <Route path="addSubCategory" element={<AddSubCategoryPage />} />
             <Route path="addProduct" element={<AddProductPage />} />
+            <Route path="coupon" element={<DiscountCoupon />} />
           </Route>
         )
       ) : (
