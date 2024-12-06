@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { getAllCartProducts } from "../../app/feature/Cart/cartSlice";
 import { logOutAction } from "../../app/feature/Auth/AuthSlice";
 import toast from "react-hot-toast";
+import { getAllWishlistProducts } from "../../app/feature/Wishlist/wishlistSlice";
 
 const NavbarComponent = () => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
@@ -15,13 +16,19 @@ const NavbarComponent = () => {
   const { isLogin: isLoginReducer } = useSelector(
     (state: RootState) => state.auth,
   );
+
+  const { wishlistProducts } = useSelector(
+    (state: RootState) => state.wishlist,
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isLoginReducer) {
+      dispatch(getAllWishlistProducts());
       dispatch(getAllCartProducts());
     }
   }, [isLoginReducer, dispatch]);
+
   return (
     <nav className="sticky left-0 top-0 z-[100] w-full bg-white antialiased shadow-lg dark:bg-gray-800">
       <div className="mx-auto max-w-screen-xl p-4 2xl:px-0">
@@ -133,14 +140,13 @@ const NavbarComponent = () => {
 
               <Link
                 className="sm:flex"
-                to={isLogin ? "/user/wishlist}" : "/login"}
-                onClick={() => {}}
+                to={isLogin ? "/user/wishlist" : "/login"}
               >
                 My Wishlist
               </Link>
-              {isLoginReducer ? (
+              {isLogin ? (
                 <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
-                  {0}
+                  {wishlistProducts.length}
                 </span>
               ) : (
                 ""
