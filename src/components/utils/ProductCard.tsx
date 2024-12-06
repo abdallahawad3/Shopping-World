@@ -1,13 +1,21 @@
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import type { IProduct } from "../../interfaces";
 import { textSlice } from "../../utils";
 import CookieService from "../../services/CookieService";
-import { useAppDispatch } from "../../app/store";
+import { useAppDispatch, type RootState } from "../../app/store";
 import { addToCart, addToCartAction } from "../../app/feature/Cart/cartSlice";
 import toast from "react-hot-toast";
+import {
+  addToWishList,
+  getAllWishlistProducts,
+  removeFromWishList,
+  // toggleWishlistProductAction,
+} from "../../app/feature/Wishlist/wishlistSlice";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 interface IProps {
   product: IProduct;
@@ -16,7 +24,16 @@ interface IProps {
 const ProductCard = ({ product }: IProps) => {
   const user = CookieService.get("user") ? CookieService.get("user") : false;
   const isLogged = user ? user.token : false;
+
   const dispatch = useAppDispatch();
+  const { wishlistProducts } = useSelector(
+    (state: RootState) => state.wishlist,
+  );
+
+  const productExist = wishlistProducts.find((ele) => ele._id == product._id);
+  useEffect(() => {
+    dispatch(getAllWishlistProducts());
+  }, [dispatch]);
 
   return (
     <motion.div
@@ -81,8 +98,23 @@ const ProductCard = ({ product }: IProps) => {
               <div className="tooltip-arrow" data-popper-arrow=""></div>
             </div>
 
-            <button type="button">
-              <FaRegHeart />
+            <button
+              type="button"
+              onClick={() => {
+                if (isLogged) {
+                  if (productExist) {
+                    dispatch(removeFromWishList(product._id));
+                  } else {
+                    dispatch(addToWishList(product._id));
+                  }
+                } else {
+                  toast.error("You should login first", {
+                    position: "top-right",
+                  });
+                }
+              }}
+            >
+              {productExist ? <FaHeart fill="red" /> : <FaRegHeart />}
             </button>
           </div>
         </div>
