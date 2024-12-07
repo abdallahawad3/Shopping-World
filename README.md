@@ -1,6 +1,6 @@
 # Shopping World E-commerce
 
-Shopping World Banner![alt text](image-12.png)
+Shopping World Banner![alt text](./public/image-12.png)
 
 **Shopping World** is a full-featured e-commerce web application built using modern technologies. It provides both user and admin interfaces to streamline online shopping and product management.
 
