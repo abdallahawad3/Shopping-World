@@ -13,28 +13,28 @@ Shopping World Banner![alt text](image-12.png)
 - **Authorization**: Secure login and registration for users.
 - **Pages**:
   - **Cart Page**: View and manage items added to the shopping cart.  
-    Shopping cart![alt text](image-1.png)
-    Cart Drawer![alt text](image-2.png)
+    Shopping cart![alt text](./public/image-1.png)
+    Cart Drawer![alt text](./public/image-2.png)
   - **Wishlist Page**: Manage favorite products.  
-    Wishlist Page![alt text](image-3.png)
+    Wishlist Page![alt text](./public/image-3.png)
   - **Address Page**: Save and manage shipping addresses.  
-    Address Page![alt text](image-4.png)
-    Delete Address![alt text](image-5.png)
-    Edit Address![alt text](image-6.png)
+    Address Page![alt text](./public/image-4.png)
+    Delete Address![alt text](./public/image-5.png)
+    Edit Address![alt text](./public/image-6.png)
   - **All Product Page**: View All Product Page.  
-    All Products Page![alt text](image-7.png)
-    Fitters Products![alt text](image-8.png)
+    All Products Page![alt text](./public/image-7.png)
+    Fitters Products![alt text](./public/image-8.png)
   - **Single Product Page**: Detailed view of a specific product.  
-    Single Product Page![alt text](image-9.png)
+    Single Product Page![alt text](./public/image-9.png)
   - **All Brands Page**: View of all brands.  
-    All Brands![alt text](image-10.png)
+    All Brands![alt text](./public/image-10.png)
   - **Single Category Page**: View of all categories.  
-    Single Product Page![alt text](image-11.png)
+    Single Product Page![alt text](./public/image-11.png)
 
 ### Admin Functionality.🔒
 
 - **Different View Of User**:
-  ![alt text](image-13.png)
+  ![alt text](./public/image-13.png)
 - **CRUD Operations**:
   - **Products**: Add, update, delete, and manage products.
   - **Categories and Subcategories**: Create, update, and delete categories and subcategories for products.
@@ -42,20 +42,20 @@ Shopping World Banner![alt text](image-12.png)
   - **Brands**: Add and manage brands for products.
 - **Pages**:
   - **Manage All Products Page**: Overview and management of all listed products.  
-    Manage Products Page![alt text](image-14.png)
-    Delete Product![alt text](image-15.png)
-    Edit Product![alt text](image-16.png)
+    Manage Products Page![alt text](./public/image-14.png)
+    Delete Product![alt text](./public/image-15.png)
+    Edit Product![alt text](./public/image-16.png)
   - **Add New Product Page**: Form to add new products to the catalog.  
-    Add New Product![alt text](image-19.png)
-    Add New Product![alt text](image-18.png)
+    Add New Product![alt text](./public/image-19.png)
+    Add New Product![alt text](./public/image-18.png)
   - **Add New Category Page**: Create new product categories.  
-    Add New Category Page![alt text](image-22.png)
+    Add New Category Page![alt text](./public/image-22.png)
   - **Add New Subcategory Page**: Add subcategories under main categories.  
-    Add New Subcategory Page![alt text](image-20.png)
+    Add New Subcategory Page![alt text](./public/image-20.png)
   - **Add Brand Page**: Add new product brands.  
-    Add Brand Page![alt text](image-17.png)
+    Add Brand Page![alt text](./public/image-17.png)
   - **Add Coupons Page**: Create and manage promotional coupons.  
-    Add Coupons Page![alt text](image-21.png)
+    Add Coupons Page![alt text](./public/image-21.png)
 
 ### Additional Features
 
@@ -63,7 +63,7 @@ Shopping World Banner![alt text](image-12.png)
 - **Smooth UI/UX**: Interactive and user-friendly design with Swiper integration for carousels.
 - **Persistent Data**: State persistence using `redux-persist` ensures data is saved across sessions.
 - **Toast Notifications**: Real-time notifications for actions like adding to cart or saving profile changes.  
-  Toast Notifications for add new product![alt text](image-23.png)
+  Toast Notifications for add new product![alt text](./public/image-23.png)
 
 ---
 
