@@ -3,13 +3,16 @@ import CookieService from "../../services/CookieService";
 import { useSelector } from "react-redux";
 import { useAppDispatch, type RootState } from "../../app/store";
 import { openDrawerAction } from "../../app/feature/Global/globalSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllCartProducts } from "../../app/feature/Cart/cartSlice";
 import { logOutAction } from "../../app/feature/Auth/AuthSlice";
 import toast from "react-hot-toast";
 import { getAllWishlistProducts } from "../../app/feature/Wishlist/wishlistSlice";
+import { FaMoon } from "react-icons/fa";
+import { MdOutlineWbSunny } from "react-icons/md";
 
 const NavbarComponent = () => {
+  const [mod, setMod] = useState("dark");
   const user = CookieService.get("user") ? CookieService.get("user") : false;
   const isLogin = user ? user.token : "";
   const { cartProducts } = useSelector((state: RootState) => state.cart);
@@ -161,6 +164,23 @@ const NavbarComponent = () => {
                 </span>
               ) : (
                 ""
+              )}
+            </button>
+            <button>
+              {mod === "dark" ? (
+                <MdOutlineWbSunny
+                  onClick={() => {
+                    setMod("light");
+                    document.body.className = mod;
+                  }}
+                />
+              ) : (
+                <FaMoon
+                  onClick={() => {
+                    setMod("dark");
+                    document.body.className = mod;
+                  }}
+                />
               )}
             </button>
             {/* ACCOUNT */}
