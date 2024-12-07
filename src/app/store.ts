@@ -11,6 +11,7 @@ import cartSlice from "./feature/Cart/cartSlice";
 import authSlice from "./feature/Auth/AuthSlice";
 import couponSlice from "./feature/Coupon/CouponSlice";
 import wishlistSlice from "./feature/Wishlist/wishlistSlice";
+import addressSlice from "./feature/Address/AddressSlice";
 import { dashboardProductApi } from "./services/dashboardProductApi";
 
 // Configuration For persist
@@ -36,6 +37,7 @@ export const store = configureStore({
     wishlist: persistedWishlist,
     cart: persistedCart,
     coupon: couponSlice,
+    address: addressSlice,
     auth: authSlice,
     [dashboardProductApi.reducerPath]: dashboardProductApi.reducer,
   },
