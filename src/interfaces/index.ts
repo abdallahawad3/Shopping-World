@@ -100,3 +100,19 @@ export interface ICoupon {
   expire: string;
   discount: number;
 }
+
+export interface IAddressInputs {
+  id: string;
+  name: "addressName" | "addressDetails" | "addressPhone";
+  type: string;
+  label: string;
+  placeholder?: string;
+}
+
+export interface IEditAddressInputs {
+  id: string;
+  name: "editAddressName" | "editAddressDetails" | "editAddressPhone";
+  type: string;
+  label: string;
+  placeholder?: string;
+}
