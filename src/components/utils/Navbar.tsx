@@ -78,12 +78,19 @@ const NavbarComponent = () => {
             <button
               type="button"
               onClick={() => {
-                isLogin
-                  ? dispatch(openDrawerAction())
-                  : toast.error("You should login first", {
-                      duration: 1000,
-                      position: "top-right",
-                    });
+                if (isLogin && user.data.role === "user") {
+                  dispatch(openDrawerAction());
+                } else if (user.data.role === "admin") {
+                  toast.error("You are an admin", {
+                    duration: 1000,
+                    position: "top-right",
+                  });
+                } else {
+                  toast.error("You should login first", {
+                    duration: 1000,
+                    position: "top-right",
+                  });
+                }
               }}
               className="relative inline-flex items-center justify-center rounded-lg p-2 text-sm font-medium leading-none text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
             >
@@ -106,7 +113,7 @@ const NavbarComponent = () => {
                 />
               </svg>
               My Cart
-              {isLogin ? (
+              {isLogin && user.data.role === "user" ? (
                 <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
                   {cartProducts.length}
                 </span>
@@ -140,11 +147,15 @@ const NavbarComponent = () => {
 
               <Link
                 className="sm:flex"
-                to={isLogin ? "/user/wishlist" : "/login"}
+                to={
+                  isLogin && user.data.role === "user"
+                    ? "/user/wishlist"
+                    : "/login"
+                }
               >
                 My Wishlist
               </Link>
-              {isLogin ? (
+              {isLogin && user.data.role === "user" ? (
                 <span className="absolute left-0 top-[-9px] flex size-5 items-center justify-center rounded-full bg-red-700 font-normal text-white">
                   {wishlistProducts.length}
                 </span>
