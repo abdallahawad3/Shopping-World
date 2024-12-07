@@ -1,4 +1,11 @@
-import { MdAddBox } from "react-icons/md";
+import { TbCategoryPlus } from "react-icons/tb";
+import { BiSolidCoupon, BiSolidCategoryAlt } from "react-icons/bi";
+import {
+  MdAddBox,
+  MdBrandingWatermark,
+  MdOutlineManageAccounts,
+  MdOutlineProductionQuantityLimits,
+} from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const AdminSidebar = () => {
@@ -80,16 +87,7 @@ const AdminSidebar = () => {
                   to={"/admin"}
                   className="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="size-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
-                    <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
-                  </svg>
+                  <MdOutlineProductionQuantityLimits />
                   <span className="ml-3">Manage Products</span>
                 </Link>
               </li>
@@ -98,19 +96,7 @@ const AdminSidebar = () => {
                   to={"/admin/orders"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="size-6 shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <MdOutlineManageAccounts />
                   <span className="ml-3 flex-1 whitespace-nowrap text-left">
                     Manage Orders
                   </span>
@@ -121,19 +107,7 @@ const AdminSidebar = () => {
                   to={"/admin/addBrand"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="size-6 shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <MdBrandingWatermark />
                   <span className="ml-3 flex-1 whitespace-nowrap text-left">
                     Add Brand
                   </span>
@@ -145,19 +119,7 @@ const AdminSidebar = () => {
                   to={"/admin/addCategory"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="size-6 shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <TbCategoryPlus />
                   <span className="ml-3 flex-1 whitespace-nowrap text-left">
                     Add Category
                   </span>
@@ -168,19 +130,7 @@ const AdminSidebar = () => {
                   to={"/admin/addSubCategory"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="size-6 shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
+                  <BiSolidCategoryAlt />
                   <span className="ml-3 flex-1 whitespace-nowrap text-left">
                     Add SubCategory
                   </span>
@@ -202,7 +152,8 @@ const AdminSidebar = () => {
                   to={"/admin/coupon"}
                   className="group flex w-full items-center rounded-lg p-2 text-base font-medium text-gray-900 transition duration-75 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
-                  <MdAddBox />
+                  <BiSolidCoupon />
+
                   <span className="ml-3 flex-1 whitespace-nowrap text-left">
                     Add Coupon
                   </span>
